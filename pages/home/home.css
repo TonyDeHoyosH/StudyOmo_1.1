@@ -1,0 +1,375 @@
+:root {
+    --primary-bg: #1A5276;
+    --card-bg: #FFFFFF;
+    --button-blue: #2980B9;
+    --button-red: #E74C3C;
+    --status-green: #2ECC71;
+    --progress-bar-color: #5DADE2;
+    --progress-track-color: #154360;
+    --text-primary: #34495E;
+    --text-light: #FFFFFF;
+    --icon-color: #D6EAF8;
+    --border-light: #e0e0e0;
+}
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+.hidden { 
+    display: none !important; 
+}
+
+body { 
+    font-family: 'Roboto', sans-serif; 
+    background-color: var(--primary-bg); 
+    color: var(--text-primary); 
+}
+.dashboard { 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
+}
+
+.header { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 1rem 2rem; 
+    border-bottom: 1px solid #2C74B3; 
+}
+.header__brand { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.75rem; 
+}
+.header__logo { 
+    width: 36px; 
+    height: 36px; 
+}
+.header__title { 
+    font-size: 1.5rem; 
+    font-weight: 500; 
+    color: var(--text-light); 
+}
+.nav__list { 
+    display: flex; 
+    align-items: center; 
+    list-style: none; 
+    gap: 1.5rem; 
+}
+.nav__link svg { 
+    width: 24px; 
+    height: 24px; 
+    stroke: var(--icon-color); 
+    transition: stroke 0.3s ease; 
+}
+.nav__link:hover svg { 
+    stroke: var(--text-light); 
+}
+.user-profile__avatar { 
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    border: 2px solid var(--text-light); 
+}
+
+.main-content { 
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 2rem; 
+}
+.focus-prompt__card { 
+    position: relative; 
+    background-color: var(--card-bg); 
+    border-radius: 20px; 
+    padding: 2rem 3rem 2rem 8rem; 
+    min-width: 720px; 
+    min-height: 340px; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); 
+    display: flex; 
+    align-items: center; 
+}
+.focus-prompt__logo-container { 
+    position: absolute; 
+    left: 0; 
+    top: 50%; 
+    transform: translate(-30%, -50%); 
+    width: 180px; 
+    height: 180px; 
+}
+.focus-prompt__logo { 
+    width: 100%; 
+    height: 100%; 
+}
+.focus-prompt__content-wrapper { 
+    width: 100%; 
+}
+.initial-view { 
+    text-align: left; 
+}
+.initial-view__title { 
+    font-size: 2rem; 
+    font-weight: 700; 
+    line-height: 1.2; 
+    margin-bottom: 1rem; 
+}
+.initial-view__description { 
+    font-size: 1.25rem; 
+    font-weight: 400; 
+    margin-bottom: 1.5rem; 
+}
+.initial-view__button { 
+    background-color: var(--button-blue); 
+    color: var(--text-light); 
+    border: none; 
+    border-radius: 50px; 
+    padding: 0.8rem 2rem; 
+    font-size: 1rem; 
+    font-weight: 500; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+}
+.initial-view__button:hover { 
+    background-color: #2471A3; 
+}
+.objective-form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 1rem; 
+    width: 100%; 
+    font-size: 1.1rem; 
+}
+.objective-form__group { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+.objective-form__group label { 
+    font-weight: 700; 
+}
+.objective-form__group input { 
+    border: 1px solid var(--border-light); 
+    border-radius: 6px; 
+    padding: 0.5rem; 
+    text-align: right; 
+    width: 120px; 
+}
+.objective-form__group input[type="number"] { 
+    width: 60px; 
+}
+.objective-form__buttons { 
+    display: flex; 
+    justify-content: center; 
+    gap: 1rem; 
+    margin-top: 1rem; 
+}
+.objective-form__button { 
+    border: none; 
+    border-radius: 50px; 
+    padding: 0.8rem 2.5rem; 
+    font-size: 1rem; 
+    font-weight: 500; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+}
+.objective-form__button--cancel { 
+    background-color: var(--button-red); 
+    color: white; 
+}
+.objective-form__button--cancel:hover { 
+    background-color: #C0392B; 
+}
+.objective-form__button--save { 
+    background-color: var(--button-blue); 
+    color: white; 
+}
+.objective-form__button--save:hover { 
+    background-color: #2471A3; 
+}
+
+.main-content--timer { 
+    gap: 2rem; 
+}
+.timer { 
+    position: relative; 
+    width: 300px; 
+    height: 300px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    background-color: var(--primary-bg); 
+    border-radius: 50%; 
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.2), 0 0 0 10px var(--progress-track-color); 
+}
+.timer__progress-ring { 
+    position: absolute; 
+    transform: rotate(-90deg); 
+}
+.timer__progress-ring-indicator { 
+    stroke: var(--progress-bar-color); 
+    stroke-linecap: round; 
+    transition: stroke-dashoffset 1s linear, stroke 0.3s ease; 
+}
+.timer__display { 
+    z-index: 1; 
+    font-size: 4.5rem; 
+    font-weight: 500; 
+    color: var(--text-light); 
+}
+.task-area { 
+    display: flex; 
+    align-items: center; 
+    gap: 1rem; 
+}
+
+.task-card { 
+    display: flex; 
+    align-items: center; 
+    gap: 1rem; 
+    background-color: var(--card-bg); 
+    padding: 0.75rem 1rem; 
+    border-radius: 50px; 
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); 
+    color: var(--text-primary); 
+    font-weight: 500; 
+    transition: background-color 0.3s ease; 
+}
+.task-card--completed { 
+    background-color: var(--status-green); 
+    color: white; 
+}
+.task-card__name { 
+    min-width: 120px; 
+    text-align: left; 
+}
+.task-card__detail { 
+    color: #7f8c8d; 
+    font-size: 0.9rem; 
+    white-space: nowrap; 
+}
+.task-card--completed .task-card__detail { 
+    color: white; 
+    opacity: 0.8; 
+}
+.task-card__controls { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.5rem; 
+    border-left: 1px solid var(--border-light); 
+    margin-left: 1rem; 
+    padding-left: 1.5rem; 
+}
+.task-card--completed .task-card__controls { 
+    border-left-color: rgba(255, 255, 255, 0.5); 
+}
+.task-card__control-btn { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    width: 44px; 
+    height: 44px; 
+    background-color: transparent; 
+    border: 2px solid transparent; 
+    border-radius: 50%; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+}
+.task-card__control-btn:hover { 
+    background-color: rgba(0,0,0,0.05); 
+}
+.task-card__control-btn svg { 
+    width: 24px; 
+    height: 24px; 
+    fill: var(--text-primary); 
+}
+.task-card--completed .task-card__control-btn svg { 
+    fill: white; 
+}
+.task-card__control-btn--stop svg { 
+    fill: var(--button-red); 
+}
+
+.status-message { 
+    background-color: var(--card-bg); 
+    color: var(--text-primary); 
+    padding: 0.75rem 2rem; 
+    border-radius: 20px; 
+    font-weight: 500; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+}
+
+.modal-overlay { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.6); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 1000; 
+    opacity: 0; 
+    visibility: hidden; 
+    transition: opacity 0.3s ease, visibility 0.3s ease; 
+}
+.modal-overlay.visible { 
+    opacity: 1; 
+    visibility: visible; 
+}
+.modal-box { 
+    background-color: white; 
+    padding: 2rem; 
+    border-radius: 16px; 
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2); 
+    text-align: center; 
+    max-width: 400px; 
+    width: 90%; 
+    transform: scale(0.9); 
+    transition: transform 0.3s ease; 
+}
+.modal-overlay.visible .modal-box { 
+    transform: scale(1); 
+}
+.modal-box__title { 
+    font-size: 1.5rem; 
+    font-weight: 700; 
+    margin-bottom: 1rem; 
+    color: var(--text-primary); 
+}
+.modal-box__text { 
+    font-size: 1rem; 
+    color: #6c757d; 
+    margin-bottom: 2rem; 
+    line-height: 1.5; 
+}
+.modal-box__buttons { 
+    display: flex; 
+    justify-content: center; 
+    gap: 1rem; 
+}
+.modal-box__btn { 
+    border: none; 
+    border-radius: 50px; 
+    padding: 0.75rem 1.5rem; 
+    font-size: 1rem; 
+    font-weight: 500; 
+    cursor: pointer; 
+    min-width: 120px; 
+    transition: background-color 0.2s ease, transform 0.2s ease; 
+}
+.modal-box__btn:hover { 
+    transform: translateY(-2px); 
+}
+.modal-box__btn--cancel { 
+    background-color: #e9ecef; 
+    color: #495057; 
+}
+.modal-box__btn--confirm { 
+    background-color: var(--button-red); 
+    color: white; 
+}

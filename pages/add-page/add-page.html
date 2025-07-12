@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyOmo - Crear Objetivo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="add-page.css">
+</head>
+<body>
+
+    <div class="dashboard">
+        <header class="header">
+            <div class="header__brand">
+                <!-- SVG del Logo -->
+                <svg class="header__logo" width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="48" fill="#4B9DDE"/>
+                    <path d="M50 2 A 48 48 0 0 1 98 50 L 50 50 Z" fill="#2E86C1"/>
+                    <path d="M50,2 a48,48 0 0,0 -29,88 a40,40 0 0,1 0,-78" fill="white" />
+                    <path d="M21,10 a48,48 0 0,1 74,68 a55,55 0 0,0 -68,-60" fill="#AED6F1" />
+                    <path d="M50,98 a48,48 0 0,1 -29,-88 a40,40 0 0,0 0,78" fill="#AED6F1" />
+                </svg>
+                <h1 class="header__title">StudyOmo</h1>
+            </div>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="../../index.html" class="nav__link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="./add-page.css" class="nav__link">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="" class="nav__link nav__link--add">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#" class="nav__link">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#" class="nav__link">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#" class="nav__link">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <img src="https://i.ibb.co/6rD3rC1/avatar.png" alt="Avatar del usuario" class="user-profile__avatar">
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="focus-prompt">
+                <div class="focus-prompt__card focus-prompt__card--form">
+                    <div class="focus-prompt__logo-container">
+                        <svg class="focus-prompt__logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <clipPath id="circleClip">
+                                    <circle cx="50" cy="50" r="50" />
+                                </clipPath>
+                            </defs>
+                            <g clip-path="url(#circleClip)">
+                                <rect width="100" height="100" fill="#aed6f1"/>
+                                <path d="M -10 110 C 20 20, 70 40, 50 110" fill="#2e86c1"/>
+                                <path d="M 110 -10 C 40 40, 80 80, 110 50" fill="#4b9dde"/>
+                                <path d="M -10 -10 C 30 50, 50 20, 110 -10" fill="#fff"/>
+                                <path d="M -10 110 C 50 50, 20 80, -10 40" fill="#fff"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <form class="objective-form">
+                        <div class="objective-form__group">
+                            <label for="objective-name" class="objective-form__label">Nombre:</label>
+                            <input type="text" id="objective-name" class="objective-form__input" placeholder="Ingresa el nombre aquí...">
+                        </div>
+                        <div class="objective-form__group">
+                            <label for="total-time" class="objective-form__label">Tiempo total a dedicar:</label>
+                            <span id="total-time" class="objective-form__time">00h:00m</span>
+                        </div>
+                        <div class="objective-form__group">
+                            <label for="pomodoro-time" class="objective-form__label">Tiempo Pomodoro:</label>
+                            <span id="pomodoro-time" class="objective-form__time">00min</span>
+                        </div>
+                        <div class="objective-form__group">
+                            <label for="break-time" class="objective-form__label">Tiempo de descanso:</label>
+                            <span id="break-time" class="objective-form__time">00min</span>
+                        </div>
+                        <button type="submit" class="objective-form__button">Crear Objetivo</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
