@@ -21,7 +21,7 @@
 }
 
 body { 
-    font-family: 'Roboto', sans-serif; 
+    font-family: 'Nunito', sans-serif;
     background-color: var(--primary-bg); 
     color: var(--text-primary); 
 }
@@ -36,7 +36,7 @@ body {
     align-items: center; 
     justify-content: space-between; 
     padding: 1rem 2rem; 
-    border-bottom: 1px solid #2C74B3; 
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
 }
 .header__brand { 
     display: flex; 
@@ -58,6 +58,7 @@ body {
     list-style: none; 
     gap: 1.5rem; 
 }
+
 .nav__link svg { 
     width: 24px; 
     height: 24px; 
