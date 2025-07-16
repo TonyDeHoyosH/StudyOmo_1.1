@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="home.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
 </head>
 <body>
 
     <div class="dashboard">
         <header class="header">
             <div class="header__brand">
-                <img src="../../assets/images/logo_StudyOmo.png" alt="logo Studyomo" width="40" height="40" viewBox="0 0 100 100"></svg>
+                <img src="../../assets/images/logo_StudyOmo.png" alt="logo Studyomo" height="36" viewBox="0 0 100 100"></svg>
                 <h1 class="header__title">StudyOmo</h1>
             </div>
             <nav class="nav">
@@ -44,13 +44,16 @@
             
             <div class="task-area">
                 <div id="task-card" class="task-card">
-                    <div class="task-card__logo"><svg class="header__logo" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#4B9DDE"/></svg></div>
+                    <div class="task-card__logo">
+                        <img src="../../assets/images/logo_StudyOmo.png" alt="" class="header__logo" viewBox="0 0 100 100">
+                    </div>
                     <span id="task-name" class="task-card__name"></span>
                     <span id="task-total-time" class="task-card__detail"></span>
                     <span id="task-pomodoros" class="task-card__detail"></span>
                     
                     <div class="task-card__controls">
                         <button data-action="start-timer" class="task-card__control-btn" aria-label="Iniciar temporizador"></button>
+                        <button data-action="pause-timer" class="task-card__control-btn hidden" aria-label="Pausar temporizador"></button>
                         <button data-action="restart-timer" class="task-card__control-btn" aria-label="Reiniciar pomodoro actual"></button>
                         <button data-action="stop-timer" class="task-card__control-btn task-card__control-btn--stop" aria-label="Detener y eliminar objetivo"></button>
                     </div>
