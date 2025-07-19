@@ -31,48 +31,56 @@ body {
     min-height: 100vh; 
 }
 
-.header { 
-    display: flex; 
-    align-items: center; 
+.header {
+    display: flex;
+    align-items: center;
     justify-content: space-between; 
-    padding: 1rem 2rem; 
-    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
-}
-.header__brand { 
-    display: flex; 
-    align-items: center; 
-    gap: 0.75rem; 
-}
-.header__logo { 
-    width: 36px; 
-    height: 36px; 
-}
-.header__title { 
-    font-size: 1.5rem; 
-    font-weight: 500; 
-    color: var(--text-light); 
-}
-.nav__list { 
-    display: flex; 
-    align-items: center; 
-    list-style: none; 
-    gap: 1.5rem; 
+    padding: 2rem 6rem; 
+    border-bottom: 1px solid var(--border-color);
 }
 
-.nav__link svg { 
-    width: 24px; 
-    height: 24px; 
-    stroke: var(--icon-color); 
-    transition: stroke 0.3s ease; 
+.header__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
-.nav__link:hover svg { 
-    stroke: var(--text-light); 
+
+.header__logo {
+    width: 36px;
+    height: 36px;
 }
-.user-profile__avatar { 
-    width: 40px; 
-    height: 40px; 
-    border-radius: 50%; 
-    border: 2px solid var(--text-light); 
+
+.header__title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+/* Estilos de la Navegación */
+.nav__list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 6rem;
+}
+
+.nav__link svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--icon-color);
+    transition: stroke 0.3s ease;
+}
+
+.nav__link:hover svg {
+    stroke: var(--text-light);
+}
+
+/* Estilos del Perfil de Usuario */
+.user-profile__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--text-light);
 }
 
 .main-content { 
