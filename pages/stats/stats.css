@@ -1,0 +1,176 @@
+:root {
+    --primary-bg: #2C5A85; /* Tono de azul de la imagen */
+    --card-bg: #FFFFFF;
+    --text-primary: #2C3E50; /* Texto oscuro principal */
+    --text-secondary: #566573; /* Texto más claro para valores */
+    --text-light: #FFFFFF;
+    --icon-color: #D6EAF8;
+    --avatar-bg: #D6EAF8; /* Fondo del círculo del avatar */
+    --header-line: #4A7094;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 2rem;
+    border-bottom: 2px solid var(--header-line);
+}
+
+.header__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.header__logo {
+    width: 36px;
+    height: 36px;
+}
+
+.header__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+.nav__list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 2.5rem;
+}
+
+.nav__link {
+    color: var(--icon-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav__link svg {
+    width: 26px;
+    height: 26px;
+    stroke: var(--icon-color);
+    transition: stroke 0.3s ease;
+}
+
+.nav__link:hover svg {
+    stroke: var(--text-light);
+}
+
+.user-profile__avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid var(--text-light);
+    transition: transform 0.3s ease;
+}
+
+.user-profile a:hover .user-profile__avatar {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.stats-card {
+    position: relative;
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    padding: 2.5rem 2.5rem 2.5rem 9rem; /* Espacio a la izquierda para el avatar */
+    max-width: 650px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.stats-card__avatar-container {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(-30%, -50%); /* Mueve el avatar hacia afuera */
+    width: 150px;
+    height: 150px;
+    background-color: var(--avatar-bg);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stats-card__avatar-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+.stats-card__info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Espacio entre el usuario y la lista */
+}
+
+.stats-card__user {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.stats-card__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; /* Espacio entre cada item de la lista */
+}
+
+.stats-card__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.stats-card__item span:last-of-type {
+    color: var(--text-primary);
+    margin-right: auto; /* Empuja el icono al final */
+    margin-left: 1rem;
+}
+
+.stats-card__icon-link svg {
+    stroke: var(--text-secondary);
+    transition: stroke 0.3s ease;
+}
+
+.stats-card__icon-link:hover svg {
+    stroke: var(--primary-bg);
+    cursor: pointer;
+}
