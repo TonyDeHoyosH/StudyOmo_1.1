@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyOmo Timer</title>
+    <link rel="stylesheet" href="objective.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+    <main id="timer-view" class="main-content">
+        <div class="timer">
+            <svg class="timer__progress-ring" height="300" width="300">
+                <circle id="progress-ring-indicator" class="timer__progress-ring-indicator" stroke-width="12" fill="transparent" r="138" cx="150" cy="150"/>
+            </svg>
+            <span id="timer-display" class="timer__display">25:00</span>
+        </div>
+        
+        <div class="task-area">
+            <div id="task-card" class="task-card">
+                <div class="task-card__logo">
+                    <img src="../../assets/icons/logo_StudyOmo_azul.png" alt="Logo StudyOmo" class="header__logo" width="36" height="36">
+                </div>
+                <span id="task-name" class="task-card__name"></span>
+                <span id="task-total-time" class="task-card__detail"></span>
+                <span id="task-pomodoros" class="task-card__detail"></span>
+                
+                <div class="task-card__controls">
+                    <button data-action="start-timer" class="task-card__control-btn" aria-label="Iniciar temporizador"></button>
+                    <button data-action="pause-timer" class="task-card__control-btn hidden" aria-label="Pausar temporizador"></button>
+                    <button data-action="restart-timer" class="task-card__control-btn" aria-label="Reiniciar pomodoro actual"></button>
+                    <button data-action="stop-timer" class="task-card__control-btn task-card__control-btn--stop" aria-label="Detener y eliminar objetivo"></button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="status-message" class="status-message hidden"></div>
+    </main>
+
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal-box">
+            <h2 class="modal-box__title">Eliminar Sesión</h2>
+            <p class="modal-box__text">¿Estás seguro de que quieres eliminar la sesión actual? Esta acción no se puede deshacer.</p>
+            <div class="modal-box__buttons">
+                <button data-action="cancel-delete" class="modal-box__btn modal-box__btn--cancel">Cancelar</button>
+                <button data-action="confirm-delete" class="modal-box__btn modal-box__btn--confirm">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="objective.js"></script>
+</body>
+</html>

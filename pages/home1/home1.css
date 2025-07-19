@@ -1,0 +1,145 @@
+
+@import url('../../global.css');
+/* Variables generales (puedes moverlas a un archivo base.css si deseas) */
+:root {
+  --primary-bg: #1A5276;
+  --card-bg: #FFFFFF;
+  --button-blue: #2980B9;
+  --text-primary: #34495E;
+  --text-light: #FFFFFF;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+}
+
+.focus-prompt__card { 
+    position: relative; 
+    background-color: var(--card-bg); 
+    border-radius: 20px; 
+    padding: 3rem 5rem 3rem 12rem; 
+    display: flex;
+    align-items: center;
+    max-width: 700px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);   
+}
+
+.focus-prompt__logo-container { 
+    position: absolute; 
+    left: 0; 
+    top: 50%; 
+    transform: translate(-50%, -50%); 
+    width: 250px; 
+    height: auto; 
+}
+
+.focus-prompt__logo { 
+    width: 100%; 
+    height: 100%; 
+}
+
+.focus-prompt__content-wrapper { 
+    width: 100%; 
+}
+
+.initial-view {
+  text-align: left;
+}
+
+.initial-view__title {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.initial-view__description {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+
+.initial-view__button {
+  background-color: var(--button-blue);
+  color: var(--text-light);
+  border: none;
+  border-radius: 50px;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.initial-view__button:hover {
+  background-color: #2471A3;
+}
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.focus-prompt__card {
+    position: relative;
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    padding: 3rem 5rem 3rem 12rem;
+    display: flex;
+    align-items: center;
+    max-width: 700px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.focus-prompt__logo-container {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: auto;
+}
+
+.focus-prompt__logo {
+    width: 100%;
+    height: 100%;
+}
+
+.focus-prompt__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.focus-prompt__title {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.focus-prompt__description {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.focus-prompt__button {
+    background-color: #2980B9;
+    color: var(--text-light);
+    border: none;
+    border-radius: 50px;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background-color 0.3s ease;
+}
+
+.focus-prompt__button:hover {
+    background-color: #2471A3;
+}
