@@ -51,24 +51,23 @@ body {
     padding: 3rem 4rem 3rem 12rem; /* Más padding izquierdo para empujar el form */
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
     width: 100%;
-    max-width: 800px;
+    max-width: 650px;
     display: flex;
-    min-height: 450px;
+    justify-content: flex-end;
 }
 
 .decorative-logo-container {
     position: absolute;
     left: 0;
     top: 50%;
-    transform: translate(-35%, -50%);
+    transform: translate(-50%, -50%);
     width: 280px;
-    height: 280px;
+    height: auto;
 }
 
 .decorative-logo {
     width: 100%;
     height: 100%;
-    filter: invert(30%) sepia(9%) saturate(2283%) hue-rotate(166deg) brightness(96%) contrast(88%) opacity(50%);
 }
 
 .create-class-form {

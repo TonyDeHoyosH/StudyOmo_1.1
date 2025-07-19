@@ -11,80 +11,78 @@
 }
 
 /* Reseteo y estilos base del body */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+.hidden { 
+    display: none !important; 
 }
 
-body {
+body { 
     font-family: 'Nunito', sans-serif;
-    background-color: var(--primary-bg);
-    color: var(--text-light); /* Texto principal blanco por defecto */
+    background-color: var(--primary-bg); 
+    color: var(--text-primary); 
+}
+.dashboard { 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
 }
 
-.dashboard {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+.header { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 0.75rem 2rem 0.75rem 4rem;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+.header__brand { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.75rem; 
+}
+.header__logo { 
+    width: 36px; 
+    height: 36px; 
+}
+.header__title { 
+    font-size: 1.5rem; 
+    font-weight: 500; 
+    color: var(--text-light); 
 }
 
-/* Estilos del Header */
-.header {
+.nav__list { 
+    display: flex; 
+    align-items: center; 
+    list-style: none; 
+    gap: 3rem; 
+}
+
+.nav__link {
+    color: var(--icon-color);
+    text-decoration: none;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* ESTA LÍNEA ES CLAVE: Separa los elementos horizontalmente */
-    padding: 2rem 6rem; /* Aumentamos el padding para más altura y espacio lateral */
-    border-bottom: 1px solid var(--border-color);
-}
-/* ----------------------------------------- */
-/* ----------------------------------------- */
-
-
-.header__brand {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    justify-content: center;
 }
 
-.header__logo {
-    width: 36px;
-    height: 36px;
+.nav__link svg { 
+    width: 24px; 
+    height: 24px; 
+    stroke: var(--icon-color); 
+    transition: stroke 0.5s ease; 
 }
-
-.header__title {
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: var(--text-light);
+.nav__link:hover svg { 
+    stroke: var(--text-light); 
 }
-
-/* Estilos de la Navegación */
-.nav__list {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    gap: 6rem;
+.user-profile__avatar { 
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    border: 2px solid var(--text-light); 
 }
-
-.nav__link svg {
-    width: 24px;
-    height: 24px;
-    stroke: var(--icon-color);
-    transition: stroke 0.3s ease;
-}
-
-.nav__link:hover svg {
-    stroke: var(--text-light);
-}
-
-/* Estilos del Perfil de Usuario */
-.user-profile__avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2px solid var(--text-light);
-}
-
 
 /* Contenido Principal */
 .main-content {
@@ -99,6 +97,7 @@ body {
     font-size: 2rem;
     font-weight: 800;
     margin-bottom: 2rem;
+    color: var(--text-light);
 }
 
 .class-list {
