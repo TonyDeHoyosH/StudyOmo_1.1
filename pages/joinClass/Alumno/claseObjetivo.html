@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyOmo - Detalle del Objetivo</title>
+    <link rel="stylesheet" href="./claseObjetivo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="dashboard">
+        <!-- HEADER (SIN CAMBIOS) -->
+        <header class="header">
+            <div class="header__brand">
+                <img src="../../../assets/images/logo_StudyOmo.png" alt="logo StudyOmo" class="header__logo">
+                <h1 class="header__title">StudyOmo</h1>
+            </div>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#" class="nav__link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a></li>
+                    <li class="nav__item"><a href="#" class="nav__link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg></a></li>
+                    <li class="nav__item"><a href="#" class="nav__link nav__link--add"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></a></li>
+                    <li class="nav__item"><a href="#" class="nav__link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></a></li>
+                    <li class="nav__item"><a href="#" class="nav__link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></a></li>
+                    <li class="nav__item"><a href="#" class="nav__link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></a></li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <img src="../../../assets/images/logo_StudyOmo.png" alt="Avatar del usuario" class="user-profile__avatar">
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="objective-card">
+                <div class="objective-card__logo-bg">
+                    <img src="../../../assets/images/logo_StudyOmo.png" alt="Logo StudyOmo Decorativo">
+                </div>
+                <div class="objective-card__content">
+                    <p class="objective-info"><span class="label">Clase:</span> POO 3A</p>
+                    <p class="objective-info label">Objetivo:</p>
+                    <p class="objective-description">Leer el archivo adjunto y hacer un mapa mental.</p>
+
+                    <div class="details-grid">
+                        <!-- ===== AQUÍ ESTÁ EL CAMBIO ===== -->
+                        <label for="limit-time-input" class="label">Fecha límite:</label>
+                        <input type="date" id="limit-time-input" class="time-input">
+                        
+                        <label for="pomodoro-time-input" class="label">Tiempo Pomodoro:</label>
+                        <select id="pomodoro-time-input" class="time-input">
+                            <option value="25" selected>25 minutos</option>
+                            <option value="20">20 minutos</option>
+                            <option value="15">15 minutos</option>
+                            <option value="10">10 minutos</option>
+                        </select>
+                        
+                        <label for="break-time-input" class="label">Tiempo de descanso:</label>
+                        <select id="break-time-input" class="time-input">
+                            <option value="2">5 minutos</option>
+                            <option value="3">4 minutos</option>
+                            <option value="4">3 minutos</option>
+                            <option value="5">2 minutos</option>
+                        </select>
+
+
+                        <label for="attempts-input" class="label">Límite de minutos:</label>
+                        <select id="attempts-input" class="time-input">
+                            <option value="1">1 Intento</option>
+                            <option value="2">2 Intentos</option>
+                            <option value="3">3 Intentos</option>
+                            <option value="4">4 Intentos</option>
+                            <option value="5">5 Intentos</option>
+                        </select>
+                    </div>
+
+                    <div class="objective-actions">
+                        <!-- Botón "Material de trabajo" con un ID para controlarlo con JS -->
+                        <button id="material-btn" type="button" class="btn btn--secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            Material de trabajo
+                        </button>
+                        <!-- Se cambia el onclick por type="button" para que JS lo controle -->
+                        <button id="start-objective-btn" type="button" class="btn btn--primary">Iniciar Objetivo</button>
+                    </div>
+
+                    <!-- NUEVO: Contenedor para mostrar el material adjunto -->
+                    <div id="material-display" class="material-display-container"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- NUEVO: Modal para subir archivos o URL -->
+    <div id="materialModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <h2>Añadir Material de Trabajo</h2>
+            <p>Sube un archivo desde tu dispositivo o pega un enlace web.</p>
+
+            <div class="modal-options">
+                <!-- Opción para subir archivo -->
+                <label for="file-input" class="btn btn--secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    Seleccionar Archivo
+                </label>
+                <input type="file" id="file-input" style="display: none;">
+
+                <span class="separator-text">o</span>
+
+                <!-- Opción para pegar URL -->
+                <div class="url-input-group">
+                    <input type="url" id="url-input" placeholder="Pega una URL aquí...">
+                    <button id="save-url-btn" class="btn btn--primary">Guardar URL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./claseObjetivo.js"></script>
+</body>
+
+</html>

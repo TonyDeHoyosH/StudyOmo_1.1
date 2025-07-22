@@ -4,16 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------------------------------------------------------------
     // LÓGICA PARA LA PÁGINA "MIS CLASES" (verClase.html)
     // -------------------------------------------------------------------
+    // Esta sección solo se ejecutará si encuentra elementos '.class-item'
     const classItems = document.querySelectorAll('.class-item');
-
     if (classItems.length > 0) {
         console.log("Inicializando lógica para la lista de clases.");
         classItems.forEach(item => {
-            // Este evento es para hacer clic en TODA la fila
             item.addEventListener('click', (event) => {
-                // Si el clic fue en un botón (ojo o play), no hacemos nada aquí
                 if (event.target.closest('.class-item__button')) {
-                    console.log("Clic en un botón de acción, no en la fila.");
                     return;
                 }
                 const url = item.getAttribute('data-url');
@@ -25,29 +22,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------------
-    // LÓGICA PARA EL BOTÓN "CREAR CLASE" (CORREGIDO)
+    // LÓGICA PARA EL BOTÓN "CREAR CLASE" (CORREGIDO Y UNIFICADO)
     // -------------------------------------------------------------------
+    // Esta sección solo se ejecutará si encuentra el botón '#crearClaseBtn'
     const crearClaseButton = document.getElementById('crearClaseBtn');
-
     if (crearClaseButton) {
-        console.log("Inicializando botón para ir a 'verClase.html'.");
-        // Se añade el parámetro (event) para poder acceder al evento del clic.
+        console.log("Inicializando lógica del botón 'Crear Clase'.");
+
+        // Se añade UN SOLO evento de clic para manejar toda la lógica.
         crearClaseButton.addEventListener('click', (event) => {
-            
-            // --- ¡AQUÍ ESTÁ LA CORRECCIÓN! ---
-            // Esta línea previene el comportamiento por defecto del botón (enviar el formulario).
+            // Previene el comportamiento por defecto del botón (como enviar un formulario).
             event.preventDefault();
+ 
+            // 1. OBTENER Y VALIDAR EL NOMBRE DE LA CLASE
+            const classNameInput = document.getElementById('class-name');
+            const className = classNameInput.value.trim(); // .trim() elimina espacios en blanco
+
+            // 2. VERIFICAR SI EL CAMPO ESTÁ VACÍO
+            if (className === '') {
+                // Si está vacío, muestra una alerta y DETIENE la ejecución.
+                alert('Por favor, ingresa el nombre de la clase para continuar.');
+                return; // Importante: el 'return' evita que el código de abajo se ejecute.
+            }
+
+            // 3. SI LA VALIDACIÓN ES EXITOSA, CONTINUAR
+            // Si el código llega hasta aquí, significa que el nombre de la clase es válido.
+            console.log(`Nombre de clase válido: "${className}". Redirigiendo a la siguiente página.`);
             
-            // Ahora la redirección se ejecutará sin problemas.
-            window.location.href = './verClase.html';
+            // Aquí puedes guardar el nombre de la clase en localStorage si lo necesitas en la otra página
+            // localStorage.setItem('nueva_clase_nombre', className);
+
+            // Redirige a la página para ver las clases.
+            window.location.href = 'verClase.html';
         });
     }
 
     // -------------------------------------------------------------------
     // LÓGICA PARA LA PÁGINA DE GENERACIÓN DE CÓDIGO
     // -------------------------------------------------------------------
+    // Esta sección solo se ejecutará si encuentra el elemento '.code-number'
     const codeDisplayElement = document.querySelector('.code-number');
-
     if (codeDisplayElement) {
         console.log("Inicializando generador de código para la clase.");
 

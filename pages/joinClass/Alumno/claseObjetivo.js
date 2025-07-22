@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const pomodoroInput = document.getElementById('pomodoro-time-input');
         const breakInput = document.getElementById('break-time-input');
         const limitInput = document.getElementById('limit-time-input');
-        const totalInput = document.getElementById('total-time-input');
         const attemptsInput = document.getElementById('attempts-input'); // Asumiendo que ahora es un input
         
         // Estado del temporizador

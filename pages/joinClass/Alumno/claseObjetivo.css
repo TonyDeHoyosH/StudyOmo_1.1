@@ -1,0 +1,363 @@
+/* Variables de color y fuentes globales (NO MODIFICADO) */
+:root {
+    --primary-bg: #1A5276;
+    --card-bg: #FFFFFF;
+    --button-bg: #2980B9;
+    --button-hover-bg: #2471A3;
+    --text-primary: #34495E;
+    --text-light: #FFFFFF;
+    --icon-color: #D6EAF8;
+    --border-color: #2C74B3;
+    /* Colores adicionales del diseño */
+    --text-label-blue: #0B5394;
+    --text-value-grey: #808B96;
+}
+
+/* Reseteo y estilos base del body (NO MODIFICADO) */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+.hidden { 
+    display: none !important; 
+}
+
+body { 
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--primary-bg); 
+    color: var(--text-primary); 
+}
+.dashboard { 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
+}
+
+.header { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 0.75rem 2rem 0.75rem 4rem;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+.header__brand { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.75rem; 
+}
+.header__logo { 
+    width: 36px; 
+    height: 36px; 
+}
+.header__title { 
+    font-size: 1.5rem; 
+    font-weight: 500; 
+    color: var(--text-light); 
+}
+
+.nav__list { 
+    display: flex; 
+    align-items: center; 
+    list-style: none; 
+    gap: 3rem; 
+}
+
+.nav__link {
+    color: var(--icon-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav__link svg { 
+    width: 24px; 
+    height: 24px; 
+    stroke: var(--icon-color); 
+    transition: stroke 0.5s ease; 
+}
+.nav__link:hover svg { 
+    stroke: var(--text-light); 
+}
+.user-profile__avatar { 
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    border: 2px solid var(--text-light); 
+}
+
+/* Contenido Principal */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+/* Tarjeta de Objetivo */
+.objective-card {
+    position: relative;
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    border-radius: 25px;
+    padding: 2rem 3rem;
+    width: 100%;
+    max-width: 600px; /* Ancho ajustado */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Logo de fondo */
+.objective-card__logo-bg {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(-40%, -50%); /* Ajustado para que sobresalga más */
+    width: 220px; 
+    height: 220px;
+    opacity: 1; /* Opacidad total como en la imagen */
+    z-index: 0;
+}
+
+.objective-card__logo-bg img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Contenido principal de la tarjeta */
+.objective-card__content {
+    position: relative;
+    z-index: 1;
+    padding-left: 4rem; /* Espacio para que el logo no se superponga al texto */
+}
+
+.objective-info {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.label {
+    color: var(--text-label-blue);
+    font-weight: 800;
+}
+
+.objective-description {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+}
+
+/* Grid para los detalles de tiempo */
+.details-grid {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Columna para etiqueta, columna para valor */
+    gap: 0.75rem 1.5rem; /* Espacio vertical y horizontal */
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.details-grid .label {
+    font-weight: 800;
+    text-align: left;
+}
+
+.details-grid .value {
+    font-weight: 400;
+    color: var(--text-value-grey);
+    text-align: left;
+}
+
+/* Acciones y botones */
+.objective-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn {
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn--primary {
+    background-color: var(--button-bg);
+    color: var(--text-light);
+}
+
+.btn--primary:hover {
+    background-color: var(--button-hover-bg);
+}
+
+.btn--secondary {
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 2px solid #bdc3c7;
+}
+
+.btn--secondary:hover {
+    background-color: #f4f6f7;
+    border-color: #99a3a4;
+}
+
+.btn--secondary svg {
+    stroke: var(--text-primary);
+}
+
+.time-input {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    padding: 0.5rem 0.8rem;
+    border: 2px solid #D0D3D4;
+    border-radius: 10px;
+    width: 130px; /* Ancho consistente para los inputs */
+    background-color: #f8f9f9;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Mejora visual al hacer clic en el input */
+.time-input:focus {
+    outline: none;
+    border-color: var(--button-bg);
+    box-shadow: 0 0 5px rgba(41, 128, 185, 0.4);
+}
+
+/* Estilo para cuando el input está deshabilitado (después de iniciar el temporizador) */
+.time-input:disabled {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+
+/* Oculta las flechas de subida/bajada en los inputs de tipo número para un look más limpio */
+.time-input::-webkit-outer-spin-button,
+.time-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* Asegura que los labels y los inputs se alineen verticalmente en el centro */
+.details-grid {
+    align-items: center;
+}
+
+
+/* Estilo para el contenedor del material adjunto */
+.material-display-container {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    border: 2px dashed #D0D3D4;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: #34495E;
+    font-weight: 700;
+    text-align: center;
+    display: none; /* Oculto por defecto, se muestra con JS */
+}
+.material-display-container a {
+    color: #2980B9;
+    text-decoration: none;
+}
+.material-display-container a:hover {
+    text-decoration: underline;
+}
+
+
+/* Estilos para el Modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex; /* Se muestra cambiando a flex */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 2rem 2.5rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+}
+
+.modal-content h2 {
+    margin-bottom: 0.5rem;
+}
+
+.modal-content p {
+    margin-bottom: 2rem;
+    color: #555;
+}
+
+.modal-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.separator-text {
+    font-weight: 700;
+    color: #ccc;
+}
+
+.url-input-group {
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+#url-input {
+    flex-grow: 1;
+    padding: 0.8rem;
+    border: 2px solid #ccc;
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+}
+
+.datetime-input {
+    min-width: 220px; /* Ancho mínimo para que el selector de fecha y hora sea legible */
+}

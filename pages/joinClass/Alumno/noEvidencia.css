@@ -11,6 +11,13 @@
     /* Colores adicionales del diseño */
     --text-label-blue: #0B5394;
     --text-value-grey: #808B96;
+    --button-success-bg: #66bb6a;
+    --button-success-hover-bg: #5aae5e;
+    --button-danger-bg: #ef5350;        
+    --button-danger-hover-bg: #e53935;  
+    --button-disabled-color: #adb5bd; 
+    --border-color: #d8dde1;
+    --detail-value-color: #737373;
 }
 
 /* Reseteo y estilos base del body (NO MODIFICADO) */
@@ -192,12 +199,12 @@ body {
 }
 
 .btn--primary {
-    background-color: var(--button-bg);
+    background-color: var(--button-danger-bg);
     color: var(--text-light);
 }
 
-.btn--primary:hover {
-    background-color: var(--button-hover-bg);
+.btn--primary:hover{
+    background-color: var(--button-danger-hover-bg);
 }
 
 .btn--secondary {
@@ -214,6 +221,51 @@ body {
 .btn--secondary svg {
     stroke: var(--text-primary);
 }
+
+.task-card__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+/* --- Estilos de botones base --- */
+.button {
+    padding: 0.7rem 1.5rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+/* --- ¡NUEVO! Estilo para el botón deshabilitado --- */
+.button--disabled {
+    background-color: var(--card-bg);
+    border: 1.5px dashed var(--border-color);
+    color: var(--button-disabled-color);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    cursor: not-allowed; /* Pone el cursor de no permitido */
+    opacity: 0.7; /* Lo hace ver más apagado */
+}
+.button--disabled svg {
+    stroke: var(--button-disabled-color);
+}
+
+/* --- ¡NUEVO! Estilo para el botón de Salir --- */
+.button--exit {
+    background-color: var(--button-danger-bg);
+    color: var(--text-light);
+    border: none;
+    padding: 0.7rem 2rem;
+}
+.button--exit:hover {
+    background-color: var(--button-danger-hover-bg);
+}
+
+
 
 .time-input {
     font-family: 'Nunito', sans-serif;
@@ -249,9 +301,6 @@ body {
     margin: 0;
 }
 
-.time-input[type=number] {
-    -moz-appearance: textfield;
-}
 
 /* Asegura que los labels y los inputs se alineen verticalmente en el centro */
 .details-grid {

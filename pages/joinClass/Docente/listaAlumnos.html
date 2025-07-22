@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyOmo - Mis Clases</title>
-    <link rel="stylesheet" href="./crearObjetivo.css">
+    <link rel="stylesheet" href="./listaAlumnos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
@@ -15,7 +15,7 @@
         <header class="header">
             <div class="header__brand">
                 <!-- Asegúrate de que la ruta a tu logo sea correcta -->
-                <img src="../../assets/images/logo_StudyOmo.png" alt="logo StudyOmo" class="header__logo">
+                <img src="../../../assets/images/logo_StudyOmo.png" alt="logo StudyOmo" class="header__logo">
                 <h1 class="header__title">StudyOmo</h1>
             </div>
             <nav class="nav">
@@ -32,7 +32,7 @@
                         </a>
                     </li>
                     <li class="nav__item">
-                        <a href="#" class="nav__link nav__link">
+                        <a href="#" class="nav__link nav__link--add">
                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                         </a>
                     </li>
@@ -55,47 +55,36 @@
             </nav>
             <div class="user-profile">
                 <!-- Asegúrate de que la ruta a tu avatar sea correcta -->
-                <img src="../../assets/images/logo_StudyOmo.png" alt="Avatar del usuario" class="user-profile__avatar">
+                <img src="../../../assets/images/logo_StudyOmo.png" alt="Avatar del usuario" class="user-profile__avatar">
             </div>
         </header>
 
         <main class="main-content">
-            <h2 class="main-content__title">Objetivos de clase</h2>
+            <h2 class="main-content__title">Alumnos dentro de clase</h2>
             <div class="class-list">
                 <!-- Clases -->
-                 <div class="class-desc">
-                    <label for="class-desc">Descripción</label>
-                    <label for="" class="description"></label>
-                 </div>
-
                 <div class="class-item" data-url="clase-programacion.html">
-                    <img src="../../assets/images/logo_StudyOmo.png" alt="Logo Clase" class="class-item__logo">
-                    <span class="class-item__name">Pasar cálculo</span>
+                    <img src="../../../assets/images/logo_StudyOmo.png" alt="Logo Clase" class="class-item__logo">
+                    <span class="class-item__name">*Nombre alumno</span>
                     <div class="class-item__actions">
-                        <button onclick="location.href='./verObjetivo(docente).html'"class="class-item__button">
+                        <button onclick="location.href='./claseObjetivo.html'"class="class-item__button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                        </button>
-                        <button class="class-item__button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                         </button>
                     </div>
                 </div>
 
                 <div class="class-item" data-url="clase-poo.html">
-                    <img src="../../assets/images/logo_StudyOmo.png" alt="Logo Clase" class="class-item__logo">
-                    <span class="class-item__name">Pasar BD</span>
+                    <img src="../../../assets/images/logo_StudyOmo.png" alt="Logo Clase" class="class-item__logo">
+                    <span class="class-item__name">*Nombre alumno</span>
                     <div class="class-item__actions">
                         <button class="class-item__button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                        </button>
-                        <button class="class-item__button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                        </button>
+                        </button>   
                     </div>
                 </div>
             </div>
         </main>
     </div>
-<script src="./crearObjetivo.js"></script>
+<script src="./mis-clases.js"></script>
 </body>
 </html>

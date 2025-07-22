@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 errorMessage.textContent = ''; // Limpiar cualquier mensaje de error previo
                 
                 // Redirigir a la página de "Mis Clases" o a la clase específica
-                window.location.href = './verClase.html';  
+                window.location.href = './vistaDentroClaseAlumno.html';  
             } else {
                 // Si el código es INVÁLIDO:
                 console.error(`Código inválido: "${userCode}"`);
