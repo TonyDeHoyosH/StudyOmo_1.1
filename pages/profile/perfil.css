@@ -1,0 +1,242 @@
+:root {
+  --primary-bg: #1A5276;
+  --card-bg: #FFFFFF;
+  --button-blue: #2980B9;
+  --button-red: #E74C3C;
+  --status-green: #2ECC71;
+  --status-yellow: #b1b1b1;
+  --progress-bar-color: #5DADE2;
+  --progress-track-color: #154360;
+  --text-primary: #34495E;
+  --text-light: #FFFFFF;
+  --icon-color: #D6EAF8;
+  --border-light: #e0e0e0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Navbar dinámica */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 2rem 0.75rem 4rem;
+  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+
+.header__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header__logo {
+  width: 36px;
+  height: 36px;
+}
+
+.header__title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-light);
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 3rem;
+}
+
+.nav__link {
+  color: var(--icon-color);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav__link svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--icon-color);
+  transition: stroke 0.5s ease;
+}
+
+.nav__link:hover svg {
+  stroke: var(--text-light);
+}
+
+.user-profile__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--text-light);
+}
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.stats-card {
+    position: relative;
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    padding: 2.5rem 2.5rem 2.5rem 9rem; /* Espacio a la izquierda para el avatar */
+    max-width: 650px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.stats-card__avatar-container {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Mueve el avatar hacia afuera */
+    width: 150px;
+    height: 150px;
+    background-color: var(--avatar-bg);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stats-card__avatar-img {
+    width: 250px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.stats-card__info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%; /* Espacio entre el usuario y la lista */
+}
+
+.stats-card__user {
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem; /* Espacio debajo de "Perfil" */
+}
+
+.stats-card__username {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Icono de edición para el nombre de usuario */
+.stats-card__username::after {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.85 0 0 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="M15 5l4 4"/></svg>');
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-left: 0.5rem; /* Espacio entre el texto y el icono */
+}
+
+
+.stats-card__section {
+    display: flex;
+    flex-direction: column;
+}
+
+.stats-card__section-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #555;
+    margin-bottom: 10px;
+    margin-top: 1rem;
+}
+
+
+.stats-card__medals {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas para las medallas */
+    gap: 1rem; /* Espacio entre las medallas */
+}
+
+.stats-card__medal-icon {
+    width: 60px; /* Tamaño de la medalla */
+    height: 60px;
+}
+
+.stats-card__streak {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+
+.stats-card__streak-icon {
+    width: 48px;
+    height: 48px;
+    margin-right: 10px;
+}
+
+.stats-card__streak-days {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+/* Estilos recomendados para la nueva sección de medallas */
+
+.medals-grid {
+    display: flex; /* o grid */
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 1rem; /* Espacio entre las medallas */
+    margin-top: 10px;
+}
+
+.medal-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 90px; /* Ancho fijo para cada slot */
+}
+
+.medal-slot__img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    margin-bottom: 8px; /* Espacio entre la imagen y el título */
+}
+
+.medal-slot__title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.2;
+}

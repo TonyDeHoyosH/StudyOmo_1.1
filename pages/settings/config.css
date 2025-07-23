@@ -1,0 +1,391 @@
+:root {
+  --primary-bg: #1A5276;
+  --card-bg: #FFFFFF;
+  --button-blue: #2980B9;
+  --button-red: #E74C3C;
+  --status-green: #2ECC71;
+  --status-yellow: #b1b1b1;
+  --progress-bar-color: #5DADE2;
+  --progress-track-color: #154360;
+  --text-primary: #34495E;
+  --text-light: #FFFFFF;
+  --icon-color: #D6EAF8;
+  --border-light: #e0e0e0;
+    
+    --icon-color: #D6EAF8;
+    --avatar-bg: #D6EAF8; /* Fondo del círculo del avatar */
+    --header-line: #4A7094;
+    --button-active: #007bff; /* Color para botones activos/seleccionados */
+    --delete-button: #dc3545; /* Color para botón de eliminar */
+    --slider-track: #e0e0e0; /* Color de la pista del slider */
+    --slider-thumb: var(--primary-bg); /* Color del "pulgar" del slider */
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Navbar dinámica */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 2rem 0.75rem 4rem;
+  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+
+.header__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header__logo {
+  width: 36px;
+  height: 36px;
+}
+
+.header__title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-light);
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 3rem;
+}
+
+.nav__link {
+  color: var(--icon-color);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav__link svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--icon-color);
+  transition: stroke 0.5s ease;
+}
+
+.nav__link:hover svg {
+  stroke: var(--text-light);
+}
+
+.user-profile__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--text-light);
+}
+
+/* Main view area */
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Modal (visible globalmente) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-box {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.visible .modal-box {
+  transform: scale(1);
+}
+
+.modal-box__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.modal-box__text {
+  font-size: 1rem;
+  color: #6c757d;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.modal-box__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.modal-box__btn {
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  min-width: 120px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.modal-box__btn:hover {
+  transform: translateY(-2px);
+}
+
+.modal-box__btn--cancel {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.modal-box__btn--confirm {
+  background-color: var(--button-red);
+  color: white;
+}
+
+
+/* Estilos para la tarjeta de configuración */
+.settings-card {
+    position: relative;
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    padding: 2.5rem 2.5rem 2.5rem 9rem; /* Espacio a la izquierda para el icono principal */
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.settings-card__icon-container {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Mueve el icono hacia afuera */
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-card__main-icon {
+    width: 250px; /* Tamaño del icono principal */
+    height: 250px;
+}
+
+.settings-card__title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.settings-card__section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #eee; /* Separador ligero */
+}
+
+.settings-card__section:last-of-type {
+    border-bottom: none¿; /* No hay separador en la última sección */
+}
+
+.settings-card__label {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.settings-card__slider {
+    -webkit-appearance: none; /* Elimina estilos por defecto de navegador */
+    width: 60%; /* Ancho del slider */
+    height: 8px;
+    background: var(--slider-track);
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+.settings-card__slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--slider-thumb);
+    cursor: pointer;
+    border: 3px solid var(--text-light); /* Borde blanco para el thumb */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.settings-card__slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--slider-thumb);
+    cursor: pointer;
+    border: 3px solid var(--text-light);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+
+.settings-card__button-group {
+    display: flex;
+    border: 1px solid var(--primary-bg);
+    border-radius: 8px;
+    overflow: hidden; /* Para que los pobordes redondeados funcionen bien con los botones */
+}
+
+.settings-card__button {
+    background-color: transparent;
+    color: var(--primary-bg);
+    border: none;
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.settings-card__button.selected {
+    background-color: var(--primary-bg);
+    color: var(--text-light);
+}
+
+.settings-card__button:hover:not(.selected) {
+    background-color: rgba(44, 90, 133, 0.1); /* Ligero hover para los no seleccionados */
+}
+
+/* Estilo específico para el botón de eliminar cuenta */
+.settings-card__section--delete-account {
+    justify-content: flex-start; /* Alinea "Eliminar cuenta" a la izquierda */
+    gap: 2rem; /* Espacio entre el texto y el botón */
+    margin-top: 1.5rem; /* Espacio extra antes de esta sección */
+}
+
+.settings-card__button--delete {
+    background-color: var(--delete-button);
+    color: var(--text-light);
+    border-radius: 8px; /* Bordes redondeados solo para este botón */
+    padding: 0.6rem 2rem;
+}
+
+.settings-card__button--delete:hover {
+    background-color: #c82333; /* Tono más oscuro al hacer hover */
+}
+input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #d3d3d3;
+    border-radius: 5px;
+    outline: none;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Fondo azul de la barra hacia la izquierda del thumb */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #265484;
+    border: 2px solid white;
+    box-shadow: -1000px 0 0 995px #2980B9; /* rastro azul */
+    position: relative;
+    z-index: 2;
+}
+
+input[type=range]::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #007BFF;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+input[type=range]::-moz-range-track {
+    background: #d3d3d3;
+    height: 8px;
+    border-radius: 5px;
+}
+
+input[type=range]::-ms-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #007BFF;
+    border: 2px solid white;
+}
+
+input[type=range]::-ms-track {
+    background: #d3d3d3;
+    height: 8px;
+    border-radius: 5px;
+    border: none;
+    color: transparent;
+}

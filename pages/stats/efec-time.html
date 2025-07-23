@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyOmo - Estadísticas</title>
+    <link rel="stylesheet" href="efec-time.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+    <div class="dashboard">
+        <header class="header">
+            <div class="header__brand">
+                <img src="../../assets/icons/logo_StudyOmo_azul.png" alt="logo StudyOmo" class="header__logo">
+                <h1 class="header__title">StudyOmo</h1>
+            </div>
+            <nav class="nav">
+                <!-- Menú de navegación -->
+            </nav>
+            <div class="user-profile">
+                <a href="#">
+                    <img src="https://i.ibb.co/6rD3rC1/avatar.png" alt="Avatar del usuario" class="user-profile__avatar">
+                </a>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="chart-card">
+                <div class="chart-card__avatar-container">
+                    <img src="https://i.ibb.co/6rD3rC1/avatar.png" alt="Avatar del usuario" class="chart-card__avatar-img">
+                </div>
+                <div class="chart-card__info">
+                    <h2 class="chart-card__user" id="user-info">Cargando...</h2>
+                    <p class="chart-card__time-info">
+                        Tiempo efectivo: <span id="effective-time">--:--</span>
+                    </p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="weekly-chart"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="efect-time.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+
+:root {
+    --primary-bg: #1A5276;
+    --card-bg: #FFFFFF;
+    --text-primary: #34495E;
+    --text-light: #FFFFFF;
+    --avatar-bg: #D6EAF8;
+    --header-line: #4A7094;
+    --chart-bar-color: #A9CCE3;
+    --chart-bar-hover-color: #2980B9;
+    --chart-grid-color: #EAECEE;
+}
+
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+/* --- Estilos del Dashboard y Header --- */
+.dashboard { 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
+}
+
+.header { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 0.75rem 2rem 0.75rem 4rem;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+
+.header__brand { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.75rem; 
+}
+
+.header__logo { 
+    width: 36px; 
+    height: 36px; 
+}
+
+.header__title { 
+    font-size: 1.5rem; 
+    font-weight: 500; 
+    color: var(--text-light); 
+}
+
+.nav__list { 
+    display: flex; 
+    align-items: center; 
+    list-style: none; 
+    gap: 3rem; 
+}
+
+.nav__link svg { 
+    width: 24px; 
+    height: 24px; 
+    stroke: var(--text-light); 
+    transition: transform 0.5s ease; 
+}
+
+.nav__link:hover svg { 
+    transform: scale(1.1); 
+}
+
+.user-profile__avatar { 
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    border: 2px solid var(--text-light); 
+    transition: transform 0.3s; 
+}
+
+.user-profile a:hover .user-profile__avatar { 
+    transform: scale(1.1); 
+    cursor: pointer;
+}
+
+/* --- Contenido Principal --- */
+.main-content { 
+    flex-grow: 1; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 2rem; 
+}
+
+/* --- Tarjeta de la Gráfica --- */
+.chart-card {
+    position: relative;
+    background-color: var(--card-bg);
+    border-radius: 20px;
+   padding: 2.5rem 2.5rem 2.5rem 9rem;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.chart-card__avatar-container {
+    position: absolute;
+    left: 0;
+    top: 50px;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background-color: var(--avatar-bg);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-card__avatar-img { 
+    width: 150px; 
+    height: auto; 
+    border-radius: 50%; 
+}
+
+.chart-card__info { 
+    margin-bottom: 1.5rem; 
+}
+
+.chart-card__user { 
+    font-size: 1.75rem; 
+    font-weight: 800; 
+    color: var(--text-primary);
+}
+
+.chart-card__data-info {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-bg);
+}
+
+.chart-card__data-info span { 
+    font-weight: 800; 
+    color: #000; 
+}
+
+/* --- Contenedor de la Gráfica --- */
+.chart-container {
+    position: relative;
+    border: 2px solid #AED6F1;
+    border-radius: 8px;
+    padding: 1.5rem;
+    padding-bottom: 1rem;
+    height: 300px;
+}

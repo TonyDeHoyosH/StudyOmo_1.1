@@ -1,0 +1,176 @@
+/* Variables de color y fuentes globales */
+:root {
+    --primary-bg: #1A5276;
+    --card-bg: #FFFFFF;
+    --button-bg: #2980B9;
+    --button-hover-bg: #2471A3;
+    --text-primary: #34495E;
+    --text-light: #FFFFFF;
+    --icon-color: #D6EAF8;
+    --border-color: #2C74B3;
+}
+
+/* Reseteo y estilos base del body */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+.hidden { 
+    display: none !important; 
+}
+
+body { 
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--primary-bg); 
+    color: var(--text-primary); 
+}
+.dashboard { 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
+}
+
+.header { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 0.75rem 2rem 0.75rem 4rem;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+.header__brand { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.75rem; 
+}
+.header__logo { 
+    width: 36px; 
+    height: 36px; 
+}
+.header__title { 
+    font-size: 1.5rem; 
+    font-weight: 500; 
+    color: var(--text-light); 
+}
+
+.nav__list { 
+    display: flex; 
+    align-items: center; 
+    list-style: none; 
+    gap: 3rem; 
+}
+
+.nav__link {
+    color: var(--icon-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav__link svg { 
+    width: 24px; 
+    height: 24px; 
+    stroke: var(--icon-color); 
+    transition: stroke 0.5s ease; 
+}
+.nav__link:hover svg { 
+    stroke: var(--text-light); 
+}
+.user-profile__avatar { 
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    border: 2px solid var(--text-light); 
+}
+
+.main-content { 
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    padding:2rem;
+}
+
+/* Contenido Principal */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+/* Estilos de la tarjeta de acción */
+.action-prompt__card {
+    position: relative;
+    background-color: var(--card-bg);
+    border-radius: 25px;
+    padding: 3rem 4rem 3rem 10rem;
+    display: flex;
+    align-items: center;
+    max-width: 650px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.action-prompt__logo-container {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: auto;
+}
+
+.action-prompt__logo {
+    width: 100%;
+    height: 100%;
+}
+
+.action-prompt__body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    align-items: center;
+}
+
+.action-prompt__text {
+    font-size: 1.80rem;
+    font-weight: 800;
+    line-height: 1.4;
+    margin-bottom: 2rem;
+}
+
+.action-prompt__button-div {
+    display: flex;
+    flex-direction: column;
+    width: 100%; 
+    max-width: 300px; 
+    align-items: center; 
+    margin-top: 1rem; 
+}
+
+.action-prompt__button {
+    background-color: var(--button-bg);
+    color: var(--text-light);
+    border: none;
+    border-radius: 50px;
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 1rem;
+    transition: background-color 0.3s ease;
+    width: 200px;
+}
+
+.action-prompt__button:last-child {
+    margin-bottom: 0;
+}
+
+.action-prompt__button:hover {
+    background-color: var(--button-hover-bg);
+}

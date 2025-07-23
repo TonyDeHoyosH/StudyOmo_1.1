@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyOmo - Inicia Sesión</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="log-in.css">
+</head>
+<body>
+
+    <div class="auth-page">
+        <header class="auth-header">
+            <div class="auth-header__brand">
+                <img class="auth-header__logo" src="../../../assets/icons/logo_StudyOmo_azul.png" alt="logo StudyOmo">
+                <h1 class="auth-header__title">StudyOmo</h1>
+            </div>
+        </header>
+
+        <main class="auth-container">
+            <div class="auth-card">
+                <h2 class="auth-card__title">Inicia Sesión</h2>
+                <form class="auth-form">
+                    <div class="auth-form__group">
+                        <label for="email" class="auth-form__label">Correo electrónico</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            class="auth-form__input" 
+                            placeholder="ejemplo@correo.com" 
+                            required>
+                    </div>
+                    <div class="auth-form__group">
+                        <label for="password" class="auth-form__label">Contraseña</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="auth-form__input" 
+                            placeholder="Ingresa tu contraseña" 
+                            required 
+                            minlength="8">
+                    </div>
+                    <button type="submit" class="auth-form__button">Inicia Sesión</button>
+                </form>
+                <p class="auth-card__footer">
+                    ¿Aún no tienes una cuenta? <a href="../register/register.html" class="auth-card__link">Regístrate</a>
+                </p>
+            </div>
+        </main>
+        <!-- Botón de Cerrar Sesión -->
+<button onclick="cerrarSesion()">Cerrar Sesión</button>
+
+    </div>
+<script src="log-in.js"></script>
+</body>
+</html>
