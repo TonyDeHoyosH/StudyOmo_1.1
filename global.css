@@ -133,7 +133,7 @@ body {
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   text-align: center;
   max-width: 400px;
-  width: 90%;
+  width: 100%;
   transform: scale(0.9);
   transition: transform 0.3s ease;
 }

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyOmo - Mis Clases</title>
+    <link rel="stylesheet" href="./crearObjetivo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+    <div class="dashboard">
+        <header class="header">
+            <div class="header__brand">
+                <img src="../../../assets/images/logo_StudyOmo.png" alt="logo StudyOmo" class="header__logo">
+                <h1 class="header__title">StudyOmo</h1>
+            </div>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <!-- Íconos SVG para la navegación -->
+                    <li class="nav__item">
+                        <a href="#" class="nav__link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        </a>
+                    </li>
+                    <!-- Otros elementos de navegación... -->
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <img src="../../../assets/images/logo_StudyOmo.png" alt="Avatar del usuario" class="user-profile__avatar">
+            </div>
+        </header>
+
+        <main class="main-content">
+            <h2 class="main-content__title">Objetivos de clase</h2>
+
+            <!-- Formulario para crear un objetivo -->
+            <div class="create-objective-form">
+               <form id="formulario-objetivo">
+    <div class="form-group">
+        <label for="nombre-objetivo">Nombre del Objetivo</label>
+        <input type="text" id="nombre-objetivo" class="form-input" required placeholder="Nombre del objetivo">
+    </div>
+
+    <div class="form-group">
+        <label for="descripcion-objetivo">Descripción del Objetivo</label>
+        <textarea id="descripcion-objetivo" class="form-input" required placeholder="Descripción del objetivo"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="total-pomodoros">Total de Pomodoros</label>
+        <input type="number" id="total-pomodoros" class="form-input" required min="1">
+    </div>
+
+    <div class="form-group">
+        <label for="duracion-pomodoro">Duración del Pomodoro (minutos)</label>
+        <input type="number" id="duracion-pomodoro" class="form-input" required min="1">
+    </div>
+
+    <div class="form-group">
+        <label for="duracion-descanso">Duración del Descanso (minutos)</label>
+        <input type="number" id="duracion-descanso" class="form-input" required min="1">
+    </div>
+
+    <button type="submit" class="form-button">Crear Objetivo</button>
+</form>
+
+            </div>
+
+            <!-- Sección donde se mostrarán los objetivos del grupo -->
+            <div class="class-list">
+                <p>Cargando objetivos...</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="./crearObjetivo.js"></script>
+</body>
+</html>

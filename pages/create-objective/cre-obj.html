@@ -19,7 +19,7 @@
 
         <nav class="nav">
         <ul class="nav__list">
-            <li class="nav__item"><a href="../../index.html" class="nav__link" data-action="home">
+            <li class="nav__item"><a href="/" class="nav__link" data-action="home">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             </a></li>
             
@@ -58,33 +58,41 @@
             <img src="../../assets/images/logo_StudyOmo.png" class="focus-prompt__logo" />
           </div>
           <div class="focus-prompt__content-wrapper">
-            <form data-action="create-objective" class="objective-form">
+            <form id="objective-form" data-action="create-objective" class="objective-form">
               <div class="objective-form__group">
                 <label for="objective-name">Nombre:</label>
                 <input type="text" id="objective-name" placeholder="Escribe el nombre del Objetivo" required maxlength="50" />
               </div>
+
+              <div class="objective-form__group">
+                <label for="objective-description">Descripción:</label>
+                <input type="text" id="objective-description" placeholder="Describe tu Objetivo" required maxlength="150" />
+              </div>
+
               <div class="objective-form__group">
                 <label for="pomodoro-time">Tiempo Pomodoro:</label>
                 <select id="pomodoro-time" required>
-                  <option value="1">1 min</option>
+                  <option value=".25">15 seg</option>
                   <option value="10">10 min</option>
-                  <option value="15">15 min</option>
                   <option value="20">20 min</option>
                   <option value="25" selected>25 min</option>
                 </select>
               </div>
+
               <div class="objective-form__group">
                 <label for="break-time">Tiempo de descanso:</label>
                 <select id="break-time" required>
-                  <option value="1">1 min</option>
+                  <option value=".25">15 seg</option>
                   <option value="2">2 min</option>
                   <option value="5" selected>5 min</option>
                 </select>
               </div>
+
               <div class="objective-form__group">
                 <label for="total-pomodoros">Total de Pomodoros:</label>
                 <input type="number" id="total-pomodoros" min="1" max="10" value="2" required />
               </div>
+
               <div class="objective-form__buttons">
                 <button type="button" data-action="cancel-form" class="objective-form__button objective-form__button--cancel">Cancelar</button>
                 <button type="submit" class="objective-form__button objective-form__button--save">Guardar</button>
@@ -96,6 +104,6 @@
     </main>
   </div>
 
-  <script src=".js"></script>
+  <script src="cre-obj.js"></script>
 </body>
 </html>

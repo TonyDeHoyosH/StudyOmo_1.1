@@ -1,93 +1,101 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // El ID del usuario debe estar disponible en localStorage
+    const idUsuario = localStorage.getItem('idUsuario');
+    if (!idUsuario) {
+        alert('No has iniciado sesión. Redirigiendo...');
+        window.location.href = '/login';  // Cambia la ruta de login si es necesario
+        return;
+    }
 
-    // --- 1. SIMULACIÓN DE DATOS RECIBIDOS (JSON) ---
-    const datosIntentos = {
-        usuario: {
-            nombre: "Tony DHH",
-            id: "243776"
-        },
-        // Conteo de intentos fallidos por día
-        intentosSemanales: [1, 2, 0, 1, 0, 0, 2], // L, M, M, J, V, S, D
-    };
+    // Endpoint para obtener los datos de fallos por día
+    const endpoint = `http://localhost:7000/estadisticas/${idUsuario}/fallos-por-dia`;
 
-    // --- 2. PREPARAR DATOS Y ACTUALIZAR HTML ---
-    
-    const etiquetasDias = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-    // Calculamos el total de intentos de la semana
-    const totalIntentos = datosIntentos.intentosSemanales.reduce((total, actual) => total + actual, 0);
+    // Hacemos la solicitud a la API
+    fetch(endpoint)
+        .then(res => res.json())  // Convertimos la respuesta a JSON
+        .then(data => {
+            // Imprimir la respuesta para ver qué datos se están recibiendo
+            console.log("Respuesta de la API:", data);
 
-    // Actualizar el nombre de usuario y el CONTEO TOTAL de intentos
-    document.getElementById('user-info').textContent = `Usuario: ${datosIntentos.usuario.nombre} | ${datosIntentos.usuario.id}`;
-    document.getElementById('intentos-total').textContent = String(totalIntentos); // No se necesita padStart para números bajos
+            // Verificamos si 'data.data' y 'data.labels' existen en la respuesta de la API
+            if (!data.data || !data.labels) {
+                console.error('Los datos de la API no están bien formateados:', data);
+                alert('Datos incompletos de la API. Revisa la consola.');
+                return;
+            }
 
-    // --- 3. CONFIGURAR Y RENDERIZAR LA GRÁFICA ---
+            // Obtener el nombre del usuario desde localStorage
+            const nombreUsuario = localStorage.getItem('usuarioNombre') || "Usuario Desconocido"; // Valor por defecto si no se encuentra
 
-    const ctx = document.getElementById('intentos-chart').getContext('2d');
+            // Verificar si el array 'data' tiene los suficientes elementos (7 días)
+            if (data.data.length < 7) {
+                console.error('El array de fallos no tiene suficientes días:', data.data);
+                alert('Datos incompletos para mostrar la gráfica.');
+                return;
+            }
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: etiquetasDias,
-            datasets: [{
-                label: 'Intentos',
-                data: datosIntentos.intentosSemanales,
-                backgroundColor: '#A9CCE3', 
-                hoverBackgroundColor: '#2980B9', 
-                borderRadius: 5,
-                borderSkipped: false,
-                barPercentage: 0.6,
-                categoryPercentage: 0.7
-            }]
-        },
-        options: {
-            maintainAspectRatio: false,
-            responsive: true,
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    enabled: true,
-                    backgroundColor: '#34495E',
-                    titleFont: { size: 0 },
-                    bodyFont: { size: 14, weight: 'bold', family: 'Nunito' },
-                    displayColors: false,
-                    // El tooltip ahora muestra "intento(s)"
-                    callbacks: {
-                        label: function(context) {
-                            const count = context.raw;
-                            return `${count} ${count === 1 ? 'intento fallido' : 'intentos fallidos'}`;
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: { // Eje X (días)
-                    grid: { display: false },
-                    ticks: {
-                        font: { size: 14, family: 'Nunito', weight: 'bold' },
-                        color: '#566573'
-                    }
+            // Verificar que los elementos del DOM existan antes de intentar actualizarlos
+            const userInfoElement = document.getElementById('user-info');
+            const fallosTotalElement = document.getElementById('fallos-total');
+
+            // Depuración: Verificamos si los elementos existen en el DOM
+            console.log("user-info element:", userInfoElement);
+            console.log("fallos-total element:", fallosTotalElement);
+
+            // Si los elementos no existen, mostramos un error
+            if (!userInfoElement || !fallosTotalElement) {
+                console.error('Uno o más elementos no se encontraron en el DOM.');
+                alert('Error: no se encontraron los elementos en el DOM.');
+                return;
+            }
+
+            // Mostrar los datos del usuario y el total de fallos en la interfaz
+            userInfoElement.textContent = `Usuario: ${nombreUsuario}`;  // Mostrar el nombre del usuario
+            fallosTotalElement.textContent = data.data.reduce((total, actual) => total + actual, 0);  // Mostrar el total de fallos
+
+            // Crear la gráfica
+            const canvas = document.getElementById('intentos-chart');
+            if (!canvas) {
+                console.error('El elemento canvas no fue encontrado');
+                alert('No se pudo encontrar el canvas para la gráfica.');
+                return;
+            }
+            const ctx = canvas.getContext('2d');  // Intentamos obtener el contexto
+
+            // Configuración para la gráfica
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Fallos',
+                        data: data.data,
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)',  // Color de las barras
+                        borderRadius: 5
+                    }]
                 },
-                y: { // Eje Y (conteo de intentos)
-                    beginAtZero: true,
-                    max: 5, // Un máximo de 5 es razonable para fallos
-                    grid: {
-                        color: '#EAECEE',
-                        drawBorder: false,
-                        borderDash: [5, 5],
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Fallos por Día',
+                            font: { size: 20 }
+                        }
                     },
-                    ticks: {
-                        stepSize: 1, // Marcas de 1 en 1
-                        padding: 10,
-                        color: '#566573',
-                        font: { family: 'Nunito', weight: '600' },
-                        callback: function(value) {
-                            if (Number.isInteger(value)) {
-                                return value;
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
                             }
                         }
                     }
                 }
-            }
-        }
-    });
+            });
+        })
+        .catch(err => {
+            console.error('ERROR al conectar con la API:', err);
+            alert('No se pudo obtener la data. Revisa consola.');
+        });
 });

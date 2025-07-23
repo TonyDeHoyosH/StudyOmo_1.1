@@ -1,8 +1,7 @@
-/* --- Variables y Estilos Base --- */
 :root {
-    --primary-bg: #2C5A85;
+    --primary-bg: #1A5276;
     --card-bg: #FFFFFF;
-    --text-primary: #2C3E50;
+    --text-primary: #34495E;
     --text-light: #FFFFFF;
     --avatar-bg: #D6EAF8;
     --header-line: #4A7094;
@@ -36,18 +35,57 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.75rem 2rem;
-    border-bottom: 2px solid var(--header-line);
+    padding: 0.75rem 2rem 0.75rem 4rem;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
 }
 
-.header__brand { display: flex; align-items: center; gap: 0.75rem; }
-.header__logo { width: 36px; height: 36px; }
-.header__title { font-size: 1.5rem; font-weight: 700; color: var(--text-light); }
-.nav__list { display: flex; align-items: center; list-style: none; gap: 2.5rem; }
-.nav__link svg { width: 26px; height: 26px; stroke: var(--text-light); transition: transform 0.3s; }
-.nav__link:hover svg { transform: scale(1.1); }
-.user-profile__avatar { width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--text-light); transition: transform 0.3s; }
-.user-profile a:hover .user-profile__avatar { transform: scale(1.1); }
+.header__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.header__logo {
+    width: 36px;
+    height: 36px;
+}
+
+.header__title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+.nav__list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 3rem;
+}
+
+.nav__link svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--text-light);
+    transition: stroke 0.5s ease;
+}
+
+.nav__link:hover svg {
+    stroke: var(--text-light);
+}
+
+.user-profile__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--text-light);
+    transition: transform 0.3s ease;
+}
+
+.user-profile a:hover .user-profile__avatar {
+    transform: scale(1.1);
+    cursor: pointer;
+}
 
 /* --- Contenido Principal --- */
 .main-content {
@@ -61,20 +99,22 @@ body {
 /* --- Tarjeta de la Gráfica --- */
 .chart-card {
     position: relative;
-    background-color: var(--card-bg);
+    background-color: var(--text-light);
     border-radius: 20px;
     padding: 2rem;
     padding-left: 8rem; /* Espacio para el avatar */
     max-width: 800px;
     width: 100%;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
 }
+
 
 .chart-card__avatar-container {
     position: absolute;
     left: 0;
     top: 50px;
-    transform: translateX(-35%);
+    transform: translate(-50%, -50%);
     width: 150px;
     height: 150px;
     background-color: var(--avatar-bg);
@@ -85,8 +125,8 @@ body {
 }
 
 .chart-card__avatar-img {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: auto;
     border-radius: 50%;
 }
 
@@ -97,12 +137,13 @@ body {
 .chart-card__user {
     font-size: 1.75rem;
     font-weight: 800;
+    color: var(--text-primary);
 }
 
 .chart-card__time-info {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    color: var(--primary-bg);
+    color: var(--text_secondary);
 }
 
 .chart-card__time-info span {
@@ -118,4 +159,11 @@ body {
     padding: 1.5rem;
     padding-bottom: 1rem;
     height: 300px; /* Altura fija para la gráfica */
+}
+
+/* --- Media Queries para adaptabilidad --- */
+@media (max-width: 768px) {
+    .chart-card {
+        padding-left: 4rem; /* Menos espacio en pantallas más pequeñas */
+    }
 }

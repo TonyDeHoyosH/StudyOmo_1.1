@@ -1,95 +1,91 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // El ID del usuario debe estar disponible en localStorage
+    const idUsuario = localStorage.getItem('idUsuario');
+    if (!idUsuario) {
+        alert('No has iniciado sesión. Redirigiendo...');
+        window.location.href = '/login';  // Cambia la ruta de login si es necesario
+        return;
+    }
 
-    // --- 1. SIMULACIÓN DE DATOS RECIBIDOS (JSON) ---
-    const datosPomodoros = {
-        usuario: {
-            nombre: "Tony DHH",
-            id: "243776"
-        },
-        // Conteo de pomodoros terminados por día
-        pomodorosSemanales: [8, 3, 5, 4, 7, 2, 6], // L, M, M, J, V, S, D
-    };
+    // Endpoint para obtener los datos de objetivos por día
+    const endpoint = `http://localhost:7000/estadisticas/${idUsuario}/objetivos-por-dia`;
 
-    // --- 2. PREPARAR DATOS Y ACTUALIZAR HTML ---
-    
-    const etiquetasDias = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-    // Calculamos el total de pomodoros de la semana
-    const totalPomodoros = datosPomodoros.pomodorosSemanales.reduce((total, actual) => total + actual, 0);
+    // Hacemos la solicitud a la API
+    fetch(endpoint)
+        .then(res => res.json())  // Convertimos la respuesta a JSON
+        .then(data => {
+            // Imprimir la respuesta para ver qué datos se están recibiendo
+            console.log("Respuesta de la API:", data);
 
-    // Actualizar el nombre de usuario y el CONTEO TOTAL de pomodoros
-    document.getElementById('user-info').textContent = `Usuario: ${datosPomodoros.usuario.nombre} | ${datosPomodoros.usuario.id}`;
-    document.getElementById('pomodoros-total').textContent = String(totalPomodoros).padStart(2, '0');
+            // Verificamos si 'data.data' y 'data.labels' existen en la respuesta de la API
+            if (!data.data || !data.labels) {
+                console.error('Los datos de la API no están bien formateados:', data);
+                alert('Datos incompletos de la API. Revisa la consola.');
+                return;
+            }
 
-    // --- 3. CONFIGURAR Y RENDERIZAR LA GRÁFICA ---
+            // Obtener el nombre del usuario desde localStorage
+            const nombreUsuario = localStorage.getItem('usuarioNombre') || "Usuario Desconocido"; // Valor por defecto si no se encuentra
 
-    const ctx = document.getElementById('pomodoros-chart').getContext('2d');
+            // Verificar si el array 'data' tiene los suficientes elementos (7 días)
+            if (data.data.length < 7) {
+                console.error('El array de objetivos no tiene suficientes días:', data.data);
+                alert('Datos incompletos para mostrar la gráfica.');
+                return;
+            }
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: etiquetasDias,
-            datasets: [{
-                label: 'Pomodoros',
-                data: datosPomodoros.pomodorosSemanales,
-                // **CORRECCIÓN PRINCIPAL AQUÍ**
-                // Un solo color de fondo para todas las barras.
-                backgroundColor: '#A9CCE3', 
-                // Un solo color de hover, se aplicará a la barra que tenga el cursor encima.
-                hoverBackgroundColor: '#2980B9', 
-                borderRadius: 5,
-                borderSkipped: false,
-                barPercentage: 0.6,
-                categoryPercentage: 0.7
-            }]
-        },
-        options: {
-            // Las opciones de la gráfica (escalas, tooltips, etc.) se mantienen igual.
-            maintainAspectRatio: false,
-            responsive: true,
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    enabled: true,
-                    backgroundColor: '#34495E',
-                    titleFont: { size: 0 },
-                    bodyFont: { size: 14, weight: 'bold', family: 'Nunito' },
-                    displayColors: false,
-                    callbacks: {
-                        label: function(context) {
-                            return `${context.raw} pomodoros`;
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    grid: { display: false },
-                    ticks: {
-                        font: { size: 14, family: 'Nunito', weight: 'bold' },
-                        color: '#566573'
-                    }
+            // Verificar que el canvas existe en el DOM
+            const canvas = document.getElementById('objetivos-chart');
+            if (!canvas) {
+                console.error('El elemento canvas no fue encontrado');
+                alert('No se pudo encontrar el canvas para la gráfica.');
+                return;
+            }
+
+            const ctx = canvas.getContext('2d');  // Intentamos obtener el contexto
+
+            // Configuración para la gráfica y el total de objetivos
+            const etiquetasDias = data.labels; // Etiquetas de días provenientes de la API
+            const totalObjetivos = data.data.reduce((total, actual) => total + actual, 0); // Calculamos el total de objetivos de la semana
+
+            // Mostrar los datos del usuario y el total de objetivos en la interfaz
+            document.getElementById('user-info').textContent = `Usuario: ${nombreUsuario}`;  // Mostrar el nombre del usuario
+            document.getElementById('objetivos-total').textContent = totalObjetivos;  // Mostrar el total de objetivos
+
+            // Crear la gráfica
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: etiquetasDias,
+                    datasets: [{
+                        label: 'Objetivos Completados',
+                        data: data.data,
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)',  // Color de las barras
+                        borderRadius: 5
+                    }]
                 },
-                y: {
-                    beginAtZero: true,
-                    max: 10,
-                    grid: {
-                        color: '#EAECEE',
-                        drawBorder: false,
-                        borderDash: [5, 5],
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Objetivos Completados por Día',
+                            font: { size: 20 }
+                        }
                     },
-                    ticks: {
-                        stepSize: 2,
-                        padding: 10,
-                        color: '#566573',
-                        font: { family: 'Nunito', weight: '600' },
-                        callback: function(value) {
-                            if (Number.isInteger(value)) {
-                                return value;
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
                             }
                         }
                     }
                 }
-            }
-        }
-    });
+            });
+        })
+        .catch(err => {
+            console.error('ERROR al conectar con la API:', err);
+            alert('No se pudo obtener la data. Revisa consola.');
+        });
 });

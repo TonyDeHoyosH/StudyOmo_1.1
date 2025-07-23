@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyOmo</title>
-    <link rel="stylesheet" href="home.css">
+    <title>StudyOmo - Crear Objetivo</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="modificarObjetivo.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
@@ -14,67 +15,70 @@
     <div class="dashboard">
         <header class="header">
             <div class="header__brand">
-                <img src="../../assets/images/logo_StudyOmo.png" alt="logo Studyomo" height="36" viewBox="0 0 100 100"></svg>
+                <img src="../../assets/images/logo_StudyOmo.png" alt="logo StudyOmo" class="header__logo">
                 <h1 class="header__title">StudyOmo</h1>
             </div>
             <nav class="nav">
                 <ul class="nav__list">
                     <li class="nav__item"><a href="#" class="nav__link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a></li>
                     <li class="nav__item"><a href="#" class="nav__link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg></a></li>
-                    <li class="nav__item"><a href="#" class="nav__link nav__link--add"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></a></li>
+                    <li class="nav__item"><a href="#" class="nav__link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></a></li>
                     <li class="nav__item"><a href="#" class="nav__link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></a></li>
                     <li class="nav__item"><a href="#" class="nav__link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></a></li>
                     <li class="nav__item"><a href="#" class="nav__link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></a></li>
                 </ul>
             </nav>
             <div class="user-profile">
-                <img src="https://i.ibb.co/6rD3rC1/avatar.png" alt="Avatar del usuario" class="user-profile__avatar">
+                <img src="../../assets/images/logo_StudyOmo.png" alt="Avatar del usuario" class="user-profile__avatar">
             </div>
         </header>
 
-        <main id="home-view" class="main-content">
-             <!-- Contenido generado por JS -->
-        </main>
-        
-        <main id="timer-view" class="main-content main-content--timer hidden">
-            <div class="timer">
-                <svg class="timer__progress-ring" height="300" width="300"><circle id="progress-ring-indicator" class="timer__progress-ring-indicator" stroke-width="12" fill="transparent" r="138" cx="150" cy="150"/></svg>
-                <span id="timer-display" class="timer__display"></span>
-            </div>
-            
-            <div class="task-area">
-                <div id="task-card" class="task-card">
-                    <div class="task-card__logo">
-                        <img src="../../assets/images/logo_StudyOmo.png" alt="" class="header__logo" viewBox="0 0 100 100">
-                    </div>
-                    <span id="task-name" class="task-card__name"></span>
-                    <span id="task-total-time" class="task-card__detail"></span>
-                    <span id="task-pomodoros" class="task-card__detail"></span>
-                    
-                    <div class="task-card__controls">
-                        <button data-action="start-timer" class="task-card__control-btn" aria-label="Iniciar temporizador"></button>
-                        <button data-action="pause-timer" class="task-card__control-btn hidden" aria-label="Pausar temporizador"></button>
-                        <button data-action="restart-timer" class="task-card__control-btn" aria-label="Reiniciar pomodoro actual"></button>
-                        <button data-action="stop-timer" class="task-card__control-btn task-card__control-btn--stop" aria-label="Detener y eliminar objetivo"></button>
-                    </div>
+       <main class="main-content">
+            <!-- La tarjeta del formulario ahora actúa como el contenedor principal -->
+            <div class="task-modal">
+                
+                <!-- El logo de fondo ahora está DENTRO de la tarjeta del formulario -->
+                <div class="background-logo-container">
+                    <img src="../../assets/images/logo_StudyOmo.png" alt="Logo StudyOmo Decorativo">
                 </div>
+
+                <!-- El formulario se mantiene igual -->
+                <form id="task-form">
+                    <div class="form-grid">
+                        <label for="task-name" class="form-label">Nombre:</label>
+                        <input type="text" id="task-name" class="form-input" placeholder="Ingresa el nombre aquí..." maxlength="100">
+
+                         <label for="total-time-text" class="form-label">Tiempo total a dedicar:</label>
+                        <div class="duration-input-group">
+                            <input type="text" id="total-time-text" class="form-input" placeholder="Ej: 1h 30m o 90 min">
+                            <span id="calculated-time-feedback" class="time-feedback"></span>
+                        </div>
+
+                        <label for="pomodoro-time" class="form-label">Tiempo Pomodoro:</label>
+                        <select id="pomodoro-time" class="form-select">
+                            <option value="25" selected>25 minutos</option>
+                            <option value="20">20 minutos</option>
+                            <option value="15">15 minutos</option>
+                            <option value="10">10 minutos</option>
+                        </select>
+
+                        <label for="break-time" class="form-label">Tiempo de descanso:</label>
+                        <select id="break-time" class="form-select">
+                            <option value="5" selected>5 minutos</option>
+                            <option value="4">4 minutos</option>
+                            <option value="3">3 minutos</option>
+                            <option value="2">2 minutos</option>
+                        </select>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="submit" class="btn btn--blue">Guardar</button>
+                        <button type="button" id="cancel-btn" class="btn btn--red">Cancelar</button>
+                    </div>
+                </form>
             </div>
-            
-            <div id="status-message" class="status-message hidden"></div>
         </main>
     </div>
-
-    <div id="modal-overlay" class="modal-overlay hidden">
-        <div class="modal-box">
-            <h2 class="modal-box__title">Eliminar Sesión</h2>
-            <p class="modal-box__text">¿Estás seguro de que quieres eliminar la sesión actual? Esta acción no se puede deshacer.</p>
-            <div class="modal-box__buttons">
-                <button data-action="cancel-delete" class="modal-box__btn modal-box__btn--cancel">Cancelar</button>
-                <button data-action="confirm-delete" class="modal-box__btn modal-box__btn--confirm">Eliminar</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="home.js"></script>
+    <script src="./modificarObjetivo.js"></script>
 </body>
 </html>
