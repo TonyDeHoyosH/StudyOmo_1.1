@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
 </head>
 <body>
-
     <main id="timer-view" class="main-content">
         <div class="timer">
             <svg class="timer__progress-ring" height="300" width="300">
@@ -22,17 +21,22 @@
         <div class="task-area">
             <div id="task-card" class="task-card">
                 <div class="task-card__logo">
-                    <img src="../../assets/icons/logo_StudyOmo_azul.png" alt="Logo StudyOmo" class="header__logo" width="36" height="36">
+                    <span>S</span>
                 </div>
-                <span id="task-name" class="task-card__name"></span>
-                <span id="task-total-time" class="task-card__detail"></span>
-                <span id="task-pomodoros" class="task-card__detail"></span>
+                <span id="task-name" class="task-card__name">StudyOmo</span>
+                <span id="task-total-time" class="task-card__detail">25 min</span>
+                <span id="task-pomodoros" class="task-card__detail">1/4 Pomodoros</span>
                 
                 <div class="task-card__controls">
-                    <button data-action="start-timer" class="task-card__control-btn" aria-label="Iniciar temporizador"></button>
-                    <button data-action="pause-timer" class="task-card__control-btn hidden" aria-label="Pausar temporizador"></button>
-                    <button data-action="restart-timer" class="task-card__control-btn" aria-label="Reiniciar pomodoro actual"></button>
-                    <button data-action="stop-timer" class="task-card__control-btn task-card__control-btn--stop" aria-label="Detener y eliminar objetivo"></button>
+                    <button id="start-btn" data-action="start-timer" class="task-card__control-btn" aria-label="Iniciar temporizador">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
+                    <button id="pause-btn" data-action="pause-timer" class="task-card__control-btn hidden" aria-label="Pausar temporizador">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    </button>
+                    <button id="stop-btn" data-action="stop-timer" class="task-card__control-btn task-card__control-btn--stop" aria-label="Detener y eliminar objetivo">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -40,7 +44,7 @@
         <div id="status-message" class="status-message hidden"></div>
     </main>
 
-    <div id="modal-overlay" class="modal-overlay hidden">
+    <div id="modal-overlay" class="modal-overlay">
         <div class="modal-box">
             <h2 class="modal-box__title">Eliminar Sesión</h2>
             <p class="modal-box__text">¿Estás seguro de que quieres eliminar la sesión actual? Esta acción no se puede deshacer.</p>
@@ -50,7 +54,7 @@
             </div>
         </div>
     </div>
-
+    
     <script src="objective.js"></script>
 </body>
 </html>

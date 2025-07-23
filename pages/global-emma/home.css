@@ -1,10 +1,9 @@
-    :root {
+:root {
     --primary-bg: #1A5276;
     --card-bg: #FFFFFF;
     --button-blue: #2980B9;
     --button-red: #E74C3C;
     --status-green: #2ECC71;
-    --status-yellow: #b1b1b1;
     --progress-bar-color: #5DADE2;
     --progress-track-color: #154360;
     --text-primary: #34495E;
@@ -32,57 +31,56 @@ body {
     min-height: 100vh; 
 }
 
-.header { 
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between; 
-    padding: 0.75rem 2rem 0.75rem 4rem;
-    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
-}
-.header__brand { 
-    display: flex; 
-    align-items: center; 
-    gap: 0.75rem; 
-}
-.header__logo { 
-    width: 36px; 
-    height: 36px; 
-}
-.header__title { 
-    font-size: 1.5rem; 
-    font-weight: 500; 
-    color: var(--text-light); 
-}
-
-.nav__list { 
-    display: flex; 
-    align-items: center; 
-    list-style: none; 
-    gap: 3rem; 
-}
-
-.nav__link {
-    color: var(--icon-color);
-    text-decoration: none;
+.header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between; 
+    padding: 2rem 6rem; 
+    border-bottom: 1px solid var(--border-color);
 }
 
-.nav__link svg { 
-    width: 24px; 
-    height: 24px; 
-    stroke: var(--icon-color); 
-    transition: stroke 0.5s ease; 
+.header__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
-.nav__link:hover svg { 
-    stroke: var(--text-light); 
+
+.header__logo {
+    width: 36px;
+    height: 36px;
 }
-.user-profile__avatar { 
-    width: 40px; 
-    height: 40px; 
-    border-radius: 50%; 
-    border: 2px solid var(--text-light); 
+
+.header__title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+/* Estilos de la Navegación */
+.nav__list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 6rem;
+}
+
+.nav__link svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--icon-color);
+    transition: stroke 0.3s ease;
+}
+
+.nav__link:hover svg {
+    stroke: var(--text-light);
+}
+
+/* Estilos del Perfil de Usuario */
+.user-profile__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--text-light);
 }
 
 .main-content { 
@@ -93,46 +91,41 @@ body {
     align-items: center; 
     padding: 2rem; 
 }
-
 .focus-prompt__card { 
     position: relative; 
     background-color: var(--card-bg); 
     border-radius: 20px; 
-    padding: 3rem 5rem 3rem 12rem; 
-    display: flex;
-    align-items: center;
-    max-width: 700px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);   
+    padding: 2rem 3rem 2rem 8rem; 
+    min-width: 720px; 
+    min-height: 340px; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); 
+    display: flex; 
+    align-items: center; 
 }
-
 .focus-prompt__logo-container { 
     position: absolute; 
     left: 0; 
     top: 50%; 
-    transform: translate(-50%, -50%); 
-    width: 250px; 
-    height: auto; 
+    transform: translate(-30%, -50%); 
+    width: 180px; 
+    height: 180px; 
 }
-
 .focus-prompt__logo { 
     width: 100%; 
     height: 100%; 
 }
-
 .focus-prompt__content-wrapper { 
     width: 100%; 
 }
-
 .initial-view { 
     text-align: left; 
 }
-
 .initial-view__title { 
     font-size: 2rem; 
     font-weight: 700; 
     line-height: 1.2; 
+    margin-bottom: 1rem; 
 }
-
 .initial-view__description { 
     font-size: 1.25rem; 
     font-weight: 400; 
@@ -164,35 +157,19 @@ body {
     justify-content: space-between; 
     align-items: center; 
 }
-
 .objective-form__group label { 
     font-weight: 700; 
-    padding: 0 1vh 0 0;
 }
-
 .objective-form__group input { 
     border: 1px solid var(--border-light); 
     border-radius: 6px; 
     padding: 0.5rem; 
-    text-align: left; 
-    width: 50vh; 
-    font-family: 'Nunito', sans-serif;
-}
-
-.objective-form__group select {
-    border: 1px solid var(--border-light); 
-    border-radius: 6px; 
-    padding: 0.5rem; 
     text-align: right; 
-    width: 15vh; 
-    font-family: 'Nunito', sans-serif;
+    width: 120px; 
 }
-
 .objective-form__group input[type="number"] { 
-    width: 10vh; 
+    width: 60px; 
 }
-
-
 .objective-form__buttons { 
     display: flex; 
     justify-content: center; 
@@ -268,59 +245,25 @@ body {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); 
     color: var(--text-primary); 
     font-weight: 500; 
-    transition: background-color 0.3s ease, color 0.3s ease; 
+    transition: background-color 0.3s ease; 
 }
-
-/* Estado Activo (Azul) */
-.task-card--activo {
-  background-color: var(--button-blue);
-  color: var(--text-light);
+.task-card--completed { 
+    background-color: var(--status-green); 
+    color: white; 
 }
-.task-card--activo .task-card__detail { color: var(--icon-color); }
-.task-card--activo .task-card__controls { border-left-color: rgba(255, 255, 255, 0.5); }
-.task-card--activo .task-card__control-btn svg { fill: var(--text-light); }
-.task-card--activo .task-card__control-btn--stop svg { fill: var(--text-light); }
-
-/* Estado Pausado (Rojo) */
-.task-card--pausado {
-  background-color: var(--button-red);
-  color: var(--text-light);
-}
-.task-card--pausado .task-card__detail { color: var(--icon-color); }
-.task-card--pausado .task-card__controls { border-left-color: rgba(255, 255, 255, 0.5); }
-.task-card--pausado .task-card__control-btn svg { fill: var(--text-light); }
-.task-card--pausado .task-card__control-btn--stop svg { fill: var(--text-light); }
-
-/* Estado Descanso (Amarillo) */
-.task-card--descanso {
-  background-color: var(--status-yellow);
-  color: var(--text-primary);
-}
-.task-card--descanso .task-card__detail { color: #555; }
-.task-card--descanso .task-card__controls { border-left-color: rgba(0, 0, 0, 0.2); }
-.task-card--descanso .task-card__control-btn svg { fill: var(--text-primary); }
-.task-card--descanso .task-card__control-btn--stop svg { fill: var(--button-red); }
-
-/* Estado Finalizado (Verde) */
-.task-card--finalizado {
-  background-color: var(--status-green);
-  color: var(--text-light);
-}
-.task-card--finalizado .task-card__detail { color: var(--icon-color); }
-.task-card--finalizado .task-card__controls { border-left-color: rgba(255, 255, 255, 0.5); }
-.task-card--finalizado .task-card__control-btn svg { fill: var(--text-light); }
-
 .task-card__name { 
     min-width: 120px; 
     text-align: left; 
 }
-
 .task-card__detail { 
     color: #7f8c8d; 
     font-size: 0.9rem; 
     white-space: nowrap; 
 }
-
+.task-card--completed .task-card__detail { 
+    color: white; 
+    opacity: 0.8; 
+}
 .task-card__controls { 
     display: flex; 
     align-items: center; 
@@ -329,7 +272,9 @@ body {
     margin-left: 1rem; 
     padding-left: 1.5rem; 
 }
-
+.task-card--completed .task-card__controls { 
+    border-left-color: rgba(255, 255, 255, 0.5); 
+}
 .task-card__control-btn { 
     display: flex; 
     justify-content: center; 
@@ -350,7 +295,9 @@ body {
     height: 24px; 
     fill: var(--text-primary); 
 }
-
+.task-card--completed .task-card__control-btn svg { 
+    fill: white; 
+}
 .task-card__control-btn--stop svg { 
     fill: var(--button-red); 
 }

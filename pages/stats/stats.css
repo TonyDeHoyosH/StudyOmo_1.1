@@ -1,7 +1,7 @@
 :root {
-    --primary-bg: #2C5A85; /* Tono de azul de la imagen */
+    --primary-bg: #1A5276; /* Tono de azul de la imagen */
     --card-bg: #FFFFFF;
-    --text-primary: #2C3E50; /* Texto oscuro principal */
+    --text-primary: #34495E; /* Texto oscuro principal */
     --text-secondary: #566573; /* Texto más claro para valores */
     --text-light: #FFFFFF;
     --icon-color: #D6EAF8;
@@ -32,8 +32,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.75rem 2rem;
-    border-bottom: 2px solid var(--header-line);
+    padding: 0.75rem 2rem 0.75rem 4rem;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
 }
 
 .header__brand {
@@ -49,7 +49,7 @@ body {
 
 .header__title {
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 500;
     color: var(--text-light);
 }
 
@@ -57,7 +57,7 @@ body {
     display: flex;
     align-items: center;
     list-style: none;
-    gap: 2.5rem;
+    gap: 3rem;
 }
 
 .nav__link {
@@ -69,10 +69,10 @@ body {
 }
 
 .nav__link svg {
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
     stroke: var(--icon-color);
-    transition: stroke 0.3s ease;
+    transition: stroke 0.5s ease;
 }
 
 .nav__link:hover svg {
@@ -80,8 +80,8 @@ body {
 }
 
 .user-profile__avatar {
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: 2px solid var(--text-light);
     transition: transform 0.3s ease;
@@ -115,7 +115,7 @@ body {
     position: absolute;
     left: 0;
     top: 50%;
-    transform: translate(-30%, -50%); /* Mueve el avatar hacia afuera */
+    transform: translate(-50%, -50%); /* Mueve el avatar hacia afuera */
     width: 150px;
     height: 150px;
     background-color: var(--avatar-bg);
@@ -126,8 +126,8 @@ body {
 }
 
 .stats-card__avatar-img {
-    width: 120px;
-    height: 120px;
+    width: 250px;
+    height: auto;
     border-radius: 50%;
 }
 

@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyOmo - Regístrate</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="register.css">
 </head>
 <body>
@@ -15,13 +14,7 @@
     <div class="auth-page">
         <header class="auth-header">
             <div class="auth-header__brand">
-                <svg class="auth-header__logo" width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="48" fill="#4B9DDE"/>
-                    <path d="M50 2 A 48 48 0 0 1 98 50 L 50 50 Z" fill="#2E86C1"/>
-                    <path d="M50,2 a48,48 0 0,0 -29,88 a40,40 0 0,1 0,-78" fill="white" />
-                    <path d="M21,10 a48,48 0 0,1 74,68 a55,55 0 0,0 -68,-60" fill="#AED6F1" />
-                    <path d="M50,98 a48,48 0 0,1 -29,-88 a40,40 0 0,0 0,78" fill="#AED6F1" />
-                </svg>
+                <img class="auth-header__logo" src="../../../assets/icons/logo_StudyOmo_azul.png" alt="logo StudyOmo">
                 <h1 class="auth-header__title">StudyOmo</h1>
             </div>
         </header>
@@ -44,6 +37,15 @@
                             title="Solo se permiten letras, números y guiones bajos.">
                     </div>
                     <div class="auth-form__group">
+                        <label for="email" class="auth-form__label">Correo electrónico</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            class="auth-form__input" 
+                            placeholder="ejemplo@dominio.com" 
+                            required>
+                    </div>
+                    <div class="auth-form__group">
                         <label for="password" class="auth-form__label">Contraseña</label>
                         <input 
                             type="password" 
@@ -53,14 +55,16 @@
                             required 
                             minlength="8">
                     </div>
+                    <a href="../log-in/log-in.html"></a>
                     <button type="submit" class="auth-form__button">Crear cuenta</button>
                 </form>
                 <p class="auth-card__footer">
-                    ¿Ya tienes una cuenta? <a href="#" class="auth-card__link">Inicia Sesión</a>
+                    ¿Ya tienes una cuenta? <a href="../log-in/log-in.html" class="auth-card__link">Inicia Sesión</a>
                 </p>
             </div>
         </main>
     </div>
 
+<script src="register.js"></script>
 </body>
 </html>
