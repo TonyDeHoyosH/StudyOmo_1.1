@@ -34,14 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Nota la nueva estructura del objeto "estadisticas".
     const datosUsuarioJSON = {
         "nombre": "Tony DHH",
-        "idUsuario": "243776",
         "estadisticas": {
             "tiempoEfectivoHoras": 7,   // Debería mostrar la medalla de plata
             "pomodorosTerminados": 101, // Debería mostrar la medalla de oro
             "objetivosAlcanzados": 12,  // Debería mostrar la medalla de bronce
             "intentosFallidos": 5       // No alcanza el bronce, mostrará la medalla bloqueada
         },
-        "diasRacha": 5
+        "diasRacha": 7
     };
     
     // --- LÓGICA DE LA APLICACIÓN ---

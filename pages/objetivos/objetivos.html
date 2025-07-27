@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyOmo - Mis Clases</title>
-    <link rel="stylesheet" href="./crearObjetivo.css">
+    <link rel="stylesheet" href="objetivos.css">
+    <link rel="stylesheet" href="/pages/global-emma/global.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
@@ -38,7 +39,7 @@
                         </a>
                     </li>
                     <li class="nav__item">
-                        <a href="/pages/cre-join-see/cre-join-see.html" class="nav__link">
+                        <a href="/pages/joinClass/joinClass.html" class="nav__link">
                            <!-- Icono Users -->
                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                         </a>
@@ -65,48 +66,25 @@
         </header>
 
         <main class="main-content">
-            <h2 class="main-content__title">Objetivos de clase</h2>
-
-            <!-- Formulario para crear un objetivo -->
-            <div class="create-objective-form">
-               <form id="formulario-objetivo">
-    <div class="form-group">
-        <label for="nombre-objetivo">Nombre del Objetivo</label>
-        <input type="text" id="nombre-objetivo" class="form-input" required placeholder="Nombre del objetivo">
-    </div>
-
-    <div class="form-group">
-        <label for="descripcion-objetivo">Descripción del Objetivo</label>
-        <textarea id="descripcion-objetivo" class="form-input" required placeholder="Descripción del objetivo"></textarea>
-    </div>
-
-    <div class="form-group">
-        <label for="total-pomodoros">Total de Pomodoros</label>
-        <input type="number" id="total-pomodoros" class="form-input" required min="1">
-    </div>
-
-    <div class="form-group">
-        <label for="duracion-pomodoro">Duración del Pomodoro (minutos)</label>
-        <input type="number" id="duracion-pomodoro" class="form-input" required min="1">
-    </div>
-
-    <div class="form-group">
-        <label for="duracion-descanso">Duración del Descanso (minutos)</label>
-        <input type="number" id="duracion-descanso" class="form-input" required min="1">
-    </div>
-
-    <button type="submit" class="form-button">Crear Objetivo</button>
-</form>
-
-            </div>
-
-            <!-- Sección donde se mostrarán los objetivos del grupo -->
+            <h2 class="main-content__title">Mis clases</h2>
             <div class="class-list">
-                <p>Cargando objetivos...</p>
+
+                <div class="class-item" data-url="clase-db.html">
+                    <img src="../../assets/images/logo_StudyOmo.png" alt="Logo Clase" class="class-item__logo">
+                    <span class="class-item__name">Tópicos de calidad</span>
+                    <span class="class-item__objective">1 Objetivo</span>
+                    <div class="class-item__actions">
+                        <button class="class-item__button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </button>
+                        <button class="class-item__button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        </button>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
-
-    <script src="./crearObjetivo.js"></script>
+<script src="objetivos.js"></script>
 </body>
 </html>

@@ -18,7 +18,7 @@
             };
 
             // 4. Realizamos la petición fetch a la API de registro
-            fetch('http://localhost:7000/usuarios/register', {
+            fetch('http://100.29.28.174:7000/usuarios/register', {
                 method: 'POST', // Método POST para crear un nuevo recurso
                 headers: {
                     'Content-Type': 'application/json'
@@ -44,7 +44,7 @@
 
                 // 6. Redirigimos al usuario a la página de inicio de sesión
                 // El `window.location.href` se ejecuta después de que el usuario cierre la alerta.
-                window.location.href = './../log-in/log-in.html'; // Cambia esto si tu archivo de login tiene otro nombre
+                window.location.href = '../log-in/log-in.html'; // Cambia esto si tu archivo de login tiene otro nombre
             })
             .catch(error => {
                 // 7. Manejamos cualquier error que ocurra durante el proceso
