@@ -10,7 +10,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet" />
 </head>
 <body>
-        
+     <header class="header">
+        <nav class="nav">
+            <div class="nav__brand">
+                <img src="/assets/icons/logo_StudyOmo_azul.png" alt="logo studyOmo" class="nav__logo">
+                <span class="nav__title">StudyOmo</span>
+            </div>
+            
+            <div class="nav__menu">
+                <a href="/home/home.html" class="nav__link">Inicio</a>
+                <a href="/pages/objetivos/objetivos.html" class="nav__link">Objetivos</a>
+                <a href="/pages/stats/stats.html" class="nav__link">Estadísticas</a>
+            </div>
+            
+            <div class="user-profile">
+                <img src="/assets/avatar-placeholder.png" alt="Usuario" class="user-profile__avatar">
+                <span class="user-profile__name">Usuario</span>
+            </div>
+        </nav>
+    </header>   
         
             <main id="timer-view" class="main-content">
                 <div class="timer">
@@ -23,7 +41,7 @@
                 <div class="task-area">
                     <div id="task-card" class="task-card">
                         <div class="task-card__logo">
-                            <span>S</span>
+                            <img src="/assets/icons/logo_StudyOmo_azul.png" alt="StudyOmo Logo" class="task-card__logo-img">
                         </div>
                         <span id="task-name" class="task-card__name">StudyOmo</span>
                         <span id="task-total-time" class="task-card__detail">25 min</span>
@@ -61,4 +79,3 @@
     <script src="objective.js"></script>
 </body>
 </html>
-<a href=""></a>

@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!objectiveId) {
         alert('No se encontró el ID del objetivo');
-        window.location.href = '/pages/home/home/home.html';
+        window.location.href = '/home/home.html';
         return;
     }
 

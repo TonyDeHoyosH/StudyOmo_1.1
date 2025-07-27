@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // ¡IMPORTANTE! Este es el EndPoint que tu backend debe tener para devolver
         // todas las clases (grupos) a las que pertenece un usuario específico.
-        const endpoint = `http://localhost:7000/grupo/${idGrupo}`;
+        const endpoint = `http://100.29.28.174:7000/grupo/${idGrupo}`;
 
         try {
             const response = await fetch(endpoint);
