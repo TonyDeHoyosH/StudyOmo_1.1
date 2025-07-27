@@ -409,7 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
         enviarMetricasAlBackend('iniciado');
         
         hideDeleteModal();
-        window.location.href = '/home/home.html';
+        window.location.href = '/pages/objetivos/objetivos.html';
     };
 
     // Event listeners
