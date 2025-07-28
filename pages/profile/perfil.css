@@ -240,3 +240,16 @@ body {
     font-weight: 600;
     line-height: 1.2;
 }
+
+.stats-card__avatar-container a {
+  display: inline-block;
+}
+
+.stats-card__avatar-img {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.stats-card__avatar-img:hover {
+  transform: scale(1.05);
+}
