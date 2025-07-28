@@ -21,7 +21,7 @@ loginForm.addEventListener('submit', (event) => {
     };
 
     // 5. Realizamos la petición fetch a la API
-    fetch('http://localhost:7000/usuarios/login', {
+    fetch('http://100.29.28.174:7000/usuarios/login', {
         method: 'POST', // Especificamos que el método es POST
         headers: {
             // Especificamos que el contenido que estamos enviando es de tipo JSON
@@ -50,7 +50,7 @@ loginForm.addEventListener('submit', (event) => {
             localStorage.setItem('usuarioNombre', data.nombre); // opcional
 
             alert('¡Inicio de sesión exitoso!');
-            window.location.href = '../../../index.html';
+            window.location.href = '../../../home/home.html';
         } else {
             throw new Error('La respuesta del servidor no contiene idUsuario.');
         }
@@ -61,15 +61,3 @@ loginForm.addEventListener('submit', (event) => {
         alert('Error al iniciar sesión. Revisa la consola para más detalles.');
     });
 });
-
-
-
-
-
-// Función para cerrar sesión y borrar los datos del localStorage
-function cerrarSesion() {
-    localStorage.removeItem('idUsuario');    // Elimina el idUsuario
-    localStorage.removeItem('usuarioNombre'); // Elimina el nombre del usuario
-    alert('¡Sesión cerrada exitosamente!');
-    window.location.href = '../../../index.html'; // Redirige a la página de inicio o login
-}

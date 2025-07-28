@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Ahora hacemos la solicitud para obtener los objetivos asociados al grupo
     try {
-        const response = await fetch(`http://localhost:7000/objetivos/grupo/${idGrupo}`);
+        const response = await fetch(`http://100.29.28.174:7000/objetivos/grupo/${idGrupo}`);
         
         if (response.ok) {
             const objetivos = await response.json();
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         };
 
         try {
-            const response = await fetch("http://localhost:7000/objetivos", {
+            const response = await fetch("http://100.29.28.174:7000/objetivos", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

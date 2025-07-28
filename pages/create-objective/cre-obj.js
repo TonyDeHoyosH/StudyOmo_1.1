@@ -18,18 +18,20 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Obtener los valores seleccionados del formulario
+        // Obtener los valores seleccionados del formulario y convertir a float
         let pomodoroTime = parseFloat(inputPomodoroTime.value);
         let breakTime = parseFloat(inputBreakTime.value);
 
-        // Si el valor es 15 segundos (0.25 minutos), lo manejamos como tal
-        if (pomodoroTime === 0.25) {
-            pomodoroTime = 0.25; // 15 segundos = 0.25 minutos
-        }
-        if (breakTime === 0.25) {
-            breakTime = 0.25; // 15 segundos = 0.25 minutos
+        // Verificar si el valor es un número válido (no NaN)
+        if (isNaN(pomodoroTime) || isNaN(breakTime)) {
+            alert('Por favor ingresa un valor numérico válido');
+            return;
         }
 
+        console.log('Duración Pomodoro:', pomodoroTime);
+        console.log('Duración Descanso:', breakTime);
+
+        // Crear el objeto con los datos del formulario
         const objetivoData = {
             idUsuario: parseInt(idUsuario),
             nombre: inputNombre.value,
@@ -41,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Enviar los datos a la API
         try {
-            const response = await fetch('http://localhost:7000/objetivos', {
+            const response = await fetch('http://100.29.28.174:7000/objetivos', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,3 +78,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+

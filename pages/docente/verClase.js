@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         // Hacemos la solicitud GET para obtener los grupos creados por el usuario
-        const response = await fetch(`http://localhost:7000/grupos/docente/${idUsuario}`);
+        const response = await fetch(`http://100.29.28.174:7000/grupos/docente/${idUsuario}`);
 
         if (response.ok) {
             const grupos = await response.json();

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Endpoint para obtener los datos de fallos por día
-    const endpoint = `http://localhost:7000/estadisticas/${idUsuario}/fallos-por-dia`;
+    const endpoint = `http://100.29.28.174:7000/estadisticas/${idUsuario}/fallos-por-dia`;
 
     // Hacemos la solicitud a la API
     fetch(endpoint)

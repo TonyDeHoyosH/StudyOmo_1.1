@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
             // Hacemos la solicitud POST para crear la clase
-            const response = await fetch("http://localhost:7000/grupos", {
+            const response = await fetch("http://100.29.28.174:7000/grupos", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
