@@ -168,15 +168,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // ✅ FUNCIÓN MODIFICADA: Actualizada para manejar el botón de cancelar
     const updateButtons = () => {
         const startBtn = document.getElementById('start-btn');
         const restartBtn = document.getElementById('restart-btn');
+        const stopBtn = document.getElementById('stop-btn'); // Agregar referencia al botón cancelar
+        
         if (state.status === 'running' || state.status === 'break') {
             startBtn.classList.add('hidden');
             restartBtn.classList.remove('hidden');
+            stopBtn.classList.remove('hidden'); // Mostrar botón cancelar durante sesión activa
+        } else if (state.status === 'completed') {
+            // Cuando está completado, mostrar botón play para repetir y ocultar cancelar
+            startBtn.classList.remove('hidden'); // ✅ MOSTRAR botón play para repetir objetivo
+            restartBtn.classList.add('hidden');
+            stopBtn.classList.add('hidden'); // ✅ OCULTAR botón cancelar cuando completado
         } else {
             startBtn.classList.remove('hidden');
             restartBtn.classList.add('hidden');
+            stopBtn.classList.remove('hidden'); // Mostrar botón cancelar en estado idle
         }
     };
 
@@ -191,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateProgressRing();
         updateTaskInfo();
         updateTaskCardState();
-        updateButtons();
+        updateButtons(); // ✅ Esto ahora maneja correctamente el botón cancelar
     };
     
     const handleActivityCheck = () => {
@@ -276,10 +286,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const startTimer = () => {
         if (state.timerInterval) return;
         
+        // ✅ Si el objetivo está completado, crear nueva sesión
         if (state.status === 'completed') {
+            // Reiniciar métricas para nueva sesión
+            sessionMetrics = {
+                tiempoEfectivo: 0,
+                pomodorosCompletados: 0,
+                intentosFallidos: 0,
+                objetivoAlcanzado: false,
+                tiempoInicioPomodoro: null,
+                tiempoAcumulado: 0
+            };
+            
             state.pomodorosDone = 0;
             state.isBreak = false;
             state.totalSeconds = state.objective.pomodoroTime * 60;
+            state.status = 'idle';
             updateUI();
         }
         
@@ -339,6 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showStatusMessage('Timer reiniciado al inicio 🔄');
     };
 
+    // ✅ FUNCIÓN MODIFICADA: Actualizada para manejar el final del timer
     const handleTimerEnd = () => {
         clearInterval(state.timerInterval);
         state.timerInterval = null;
@@ -364,7 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 sessionMetrics.objetivoAlcanzado = true;
                 
-                updateUI();
+                updateUI(); // ✅ IMPORTANTE: Actualizar UI para ocultar botón cancelar
                 showStatusMessage('¡Objetivo completado! 🎉🏆', 5000);
                 updateObjectiveStatus('completado');
                 
@@ -389,10 +412,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const showDeleteModal = () => modal.classList.add('visible');
+    // ✅ FUNCIÓN MODIFICADA: Verificar estado antes de mostrar modal
+    const showDeleteModal = () => {
+        // ✅ VERIFICAR si el objetivo ya está completado
+        if (state.status === 'completed') {
+            showStatusMessage('❌ No se puede cancelar un objetivo ya completado', 3000);
+            return; // No mostrar modal si está completado
+        }
+        modal.classList.add('visible');
+    };
+
     const hideDeleteModal = () => modal.classList.remove('visible');
 
+    // ✅ FUNCIÓN MODIFICADA: Verificar estado antes de cancelar
     const stopTimer = () => {
+        // ✅ VERIFICAR si el objetivo ya está completado
+        if (state.status === 'completed') {
+            showStatusMessage('❌ No se puede cancelar un objetivo ya completado', 3000);
+            hideDeleteModal();
+            return; // Salir sin hacer nada
+        }
+        
         clearInterval(state.timerInterval);
         if (notificationCheckInterval) clearTimeout(notificationCheckInterval);
         
@@ -409,7 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
         enviarMetricasAlBackend('iniciado');
         
         hideDeleteModal();
-        window.location.href = '/home/home.html';
+        window.location.href = '/pages/objetivos/objetivos.html';
     };
 
     // Event listeners
