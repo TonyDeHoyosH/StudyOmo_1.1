@@ -6,6 +6,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputPomodoroTime = document.getElementById("pomodoro-time");
     const inputBreakTime = document.getElementById("break-time");
 
+    // Función para limpiar idSesion del localStorage cuando se navega fuera del objetivo
+    const setupNavigationCleanup = () => {
+        // Limpiar idSesion cuando se abandona la página (excepto si va a objective.html)
+        window.addEventListener('beforeunload', (e) => {
+            // No limpiar si estamos navegando a la vista del objetivo
+            if (!document.referrer.includes('objective.html')) {
+                localStorage.removeItem('idSesion');
+            }
+        });
+
+        // También limpiar idSesion si se detecta navegación a otras secciones
+        const cleanupOnNavigation = () => {
+            const currentPath = window.location.pathname;
+            const isObjectiveRelated = currentPath.includes('objective') || 
+                                     currentPath.includes('cre-obj') ||
+                                     currentPath.includes('create-objective');
+            
+            if (!isObjectiveRelated) {
+                localStorage.removeItem('idSesion');
+            }
+        };
+
+        // Verificar al cargar la página
+        cleanupOnNavigation();
+    };
+
     formulario.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -56,14 +82,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert('Objetivo creado exitosamente');
                 console.log(data); // Muestra la respuesta de la API (incluye idObjetivo y idSesion)
 
-                // Guardar idObjetivo en localStorage
+                // Guardar idObjetivo e idSesion en localStorage
                 localStorage.setItem('idObjetivo', data.idObjetivo);
+                localStorage.setItem('idSesion', data.idSesion); // ✅ NUEVO: Guardar idSesion
                 localStorage.setItem('pomodoroTime', objetivoData.duracionPomodoro);
                 localStorage.setItem('breakTime', objetivoData.duracionDescanso);
                 localStorage.setItem('totalPomodoros', objetivoData.totalPomodoros);
                 localStorage.setItem('objectiveName', objetivoData.nombre);
 
                 console.log('idObjetivo guardado en localStorage:', data.idObjetivo);
+                console.log('idSesion guardado en localStorage:', data.idSesion); // ✅ NUEVO: Log de confirmación
 
                 // Redirigir a la página de detalles del objetivo con el id del objetivo creado
                 window.location.href = `/pages/objective/objective.html?id=${data.idObjetivo}`;
@@ -77,5 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert('Error en la conexión con el servidor');
         }
     });
-});
 
+    // Configurar la limpieza automática del localStorage
+    setupNavigationCleanup();
+});
