@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+
     // Referencia al botón de salir
     const exitButton = document.getElementById('exit-button');
     

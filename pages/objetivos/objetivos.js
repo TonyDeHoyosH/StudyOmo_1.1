@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+        const avatarIdLS = localStorage.getItem('usuarioAvatar') || 2;
+    const navbarAvatar = document.querySelector('.user-profile__avatar');
+    if (navbarAvatar) navbarAvatar.src = `/assets/icons/${avatarIdLS}.png`;
     // Contenedor principal donde se mostrarán las clases del usuario.
     const classListContainer = document.querySelector(".class-list");
 

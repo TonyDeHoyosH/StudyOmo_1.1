@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-
+    
     // --- Seleccionar elementos del DOM ---
     const addObjectiveBtn = document.getElementById('add-objective-btn');
     const modal = document.getElementById('objective-modal');

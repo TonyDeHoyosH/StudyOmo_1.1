@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = '/login';  // Cambia la ruta de login si es necesario
         return;
     }
-
     // Endpoint para obtener los datos de fallos por día
     const endpoint = `http://100.29.28.174:7000/estadisticas/${idUsuario}/fallos-por-dia`;
 

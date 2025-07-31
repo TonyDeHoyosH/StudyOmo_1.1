@@ -1,10 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     const formulario = document.getElementById("objective-form");
     const inputNombre = document.getElementById("objective-name");
     const inputDescripcion = document.getElementById("objective-description");
     const inputPomodoros = document.getElementById("total-pomodoros");
     const inputPomodoroTime = document.getElementById("pomodoro-time");
     const inputBreakTime = document.getElementById("break-time");
+
+    // Función para limpiar idSesion del localStorage cuando se navega fuera del objetivo
+    const setupNavigationCleanup = () => {
+        // Limpiar idSesion cuando se abandona la página (excepto si va a objective.html)
+        window.addEventListener('beforeunload', (e) => {
+            // No limpiar si estamos navegando a la vista del objetivo
+            if (!document.referrer.includes('objective.html')) {
+                localStorage.removeItem('idSesion');
+            }
+        });
+
+        // También limpiar idSesion si se detecta navegación a otras secciones
+        const cleanupOnNavigation = () => {
+            const currentPath = window.location.pathname;
+            const isObjectiveRelated = currentPath.includes('objective') || 
+                                     currentPath.includes('cre-obj') ||
+                                     currentPath.includes('create-objective');
+            
+            if (!isObjectiveRelated) {
+                localStorage.removeItem('idSesion');
+            }
+        };
+
+        // Verificar al cargar la página
+        cleanupOnNavigation();
+    };
 
     formulario.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -53,20 +80,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (response.ok) {
                 const data = await response.json();
-                alert('Objetivo creado exitosamente');
-                console.log(data); // Muestra la respuesta de la API (incluye idObjetivo y idSesion)
+                console.log('Respuesta completa de la API:', data); // ✅ Ver qué devuelve exactamente
 
-                // Guardar idObjetivo en localStorage
-                localStorage.setItem('idObjetivo', data.idObjetivo);
-                localStorage.setItem('pomodoroTime', objetivoData.duracionPomodoro);
-                localStorage.setItem('breakTime', objetivoData.duracionDescanso);
-                localStorage.setItem('totalPomodoros', objetivoData.totalPomodoros);
-                localStorage.setItem('objectiveName', objetivoData.nombre);
+                try {
+                    // ✅ MEJORADO: Guardado secuencial y verificado
+                    localStorage.setItem('idObjetivo', data.idObjetivo);
+                    localStorage.setItem('idSesion', data.idSesion);
+                    localStorage.setItem('pomodoroTime', objetivoData.duracionPomodoro);
+                    localStorage.setItem('breakTime', objetivoData.duracionDescanso);
+                    localStorage.setItem('totalPomodoros', objetivoData.totalPomodoros);
+                    localStorage.setItem('objectiveName', objetivoData.nombre);
 
-                console.log('idObjetivo guardado en localStorage:', data.idObjetivo);
-
-                // Redirigir a la página de detalles del objetivo con el id del objetivo creado
-                window.location.href = `/pages/objective/objective.html?id=${data.idObjetivo}`;
+                    // ✅ NUEVO: Verificar que se guardaron correctamente
+                    const idObjetivoGuardado = localStorage.getItem('idObjetivo');
+                    const idSesionGuardado = localStorage.getItem('idSesion');
+                    
+                    console.log('idObjetivo guardado:', idObjetivoGuardado);
+                    console.log('idSesion guardado:', idSesionGuardado);
+                    
+                    // ✅ NUEVO: Solo redirigir si se guardaron correctamente
+                    if (idObjetivoGuardado && idSesionGuardado) {
+                        alert('Objetivo creado exitosamente');
+                        
+                        // ✅ NUEVO: Pequeña pausa para asegurar que todo esté listo
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                        
+                        // ✅ CORREGIDO: Redirigir con ambos parámetros
+                        window.location.href = `/pages/objective/objective.html?id=${data.idObjetivo}&idSesion=${data.idSesion}`;
+                    } else {
+                        console.error('Error: No se pudieron guardar los datos en localStorage');
+                        alert('Error al guardar los datos. Por favor, intenta nuevamente.');
+                    }
+                } catch (storageError) {
+                    console.error('Error al guardar en localStorage:', storageError);
+                    alert('Error al guardar los datos localmente. Por favor, intenta nuevamente.');
+                }
 
             } else {
                 const errorData = await response.json();
@@ -77,5 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert('Error en la conexión con el servidor');
         }
     });
-});
 
+    // Configurar la limpieza automática del localStorage
+    setupNavigationCleanup();
+});

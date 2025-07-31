@@ -1,185 +1,190 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const idTarea = urlParams.get('idTarea');
+    const idGrupo = urlParams.get('idGrupo');
 
-    // ===================================================================
-    // --- SECCIÓN 1: LÓGICA DEL MODAL PARA MATERIAL DE TRABAJO ---
-    // ===================================================================
+    const idUsuario = localStorage.getItem("idUsuario");
 
-    // Referencias a los elementos del Modal
-    const materialBtn = document.getElementById('material-btn');
-    const materialModal = document.getElementById('materialModal');
-    const closeModalBtn = document.querySelector('.close-button');
-    const fileInput = document.getElementById('file-input');
-    const urlInput = document.getElementById('url-input');
-    const saveUrlBtn = document.getElementById('save-url-btn');
-    const materialDisplay = document.getElementById('material-display');
-
-    // Comprobamos si los elementos del modal existen para evitar errores en otras páginas
-    if (materialModal) {
-        // Función para abrir el modal
-        const openModal = () => {
-            materialModal.classList.add('active');
-        };
-
-        // Función para cerrar el modal
-        const closeModal = () => {
-            materialModal.classList.remove('active');
-        };
-
-        // Asignar eventos al botón para abrir/cerrar
-        materialBtn.addEventListener('click', openModal);
-        closeModalBtn.addEventListener('click', closeModal);
-
-        // Cerrar el modal si se hace clic fuera del contenido
-        window.addEventListener('click', (event) => {
-            if (event.target === materialModal) {
-                closeModal();
-            }
-        });
-
-        // Evento cuando se selecciona un archivo
-        fileInput.addEventListener('change', () => {
-            if (fileInput.files.length > 0) {
-                const fileName = fileInput.files[0].name;
-                materialDisplay.innerHTML = `Archivo adjunto: <strong>${fileName}</strong>`;
-                materialDisplay.style.display = 'block'; // Mostrar el contenedor
-                closeModal();
-            }
-        });
-
-        // Evento para guardar la URL
-        saveUrlBtn.addEventListener('click', () => {
-            const url = urlInput.value.trim();
-            if (url) {
-                // Se crea un enlace (<a>) para que la URL sea clickeable
-                materialDisplay.innerHTML = `Enlace: <a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
-                materialDisplay.style.display = 'block'; // Mostrar el contenedor
-                urlInput.value = ''; // Limpiar el input
-                closeModal();
-            } else {
-                alert('Por favor, introduce una URL válida.');
-            }
-        });
+    // Limpiar el ID de tarea si tiene formato incorrecto
+    if (idTarea && idTarea.includes('-')) {
+        idTarea = idTarea.split('-')[0];
+        console.log('ID de tarea limpiado:', idTarea);
     }
 
+    console.log('Datos del localStorage:', {
+        idUsuario,
+        idTarea,
+        idGrupo
+    });
 
-    // ===================================================================
-    // --- SECCIÓN 2: LÓGICA DEL TEMPORIZADOR Y OBJETIVO ---
-    // ===================================================================
-    
-    // Referencias a los elementos del DOM para el temporizador
-    const startButton = document.getElementById('start-objective-btn');
-    
-    // Comprobamos si el botón de iniciar objetivo existe para evitar errores
-    if (startButton) {
-        // Referencias a los inputs y displays de tiempo
-        const pomodoroInput = document.getElementById('pomodoro-time-input');
-        const breakInput = document.getElementById('break-time-input');
-        const limitInput = document.getElementById('limit-time-input');
-        const attemptsInput = document.getElementById('attempts-input'); // Asumiendo que ahora es un input
+    // Verificar que existan los datos necesarios
+    if (!idUsuario || !idTarea || !idGrupo) {
+        console.error('Faltan datos en localStorage');
+        alert('Error: No se encontraron los datos necesarios. Por favor, regrese a la página anterior.');
+        return;
+    }
+
+    // Referencias a elementos del DOM
+    const grupoNombre = document.getElementById('grupo-nombre');
+    const tareaTitulo = document.getElementById('tarea-titulo');
+    const tareaDescripcion = document.getElementById('tarea-descripcion');
+    const fechaLimite = document.getElementById('fecha-limite');
+    const tiempoPomodoro = document.getElementById('tiempo-pomodoro');
+    const tiempoDescanso = document.getElementById('tiempo-descanso');
+    const totalPomodoros = document.getElementById('total-pomodoros');
+    const materialBtn = document.getElementById('material-btn');
+    const startBtn = document.getElementById('start-objective-btn');
+    const mensajeVencida = document.getElementById('mensaje-vencida');
+
+    // Variable para almacenar la URL del recurso
+    let recursoUrl = null;
+
+    try {
+        // Hacer fetch para obtener la información de la tarea
+        const response = await fetch(`http://100.29.28.174:7000/tareas/${idTarea}`);
         
-        // Estado del temporizador
-        let pomodoroTimeLeft;
-        let breakTimeLeft;
-        let attempts = 0;
-        let isRunning = false;
-        let isBreak = false;
-        let timerInterval = null;
-
-        // Función para formatear segundos a un formato legible
-        function formatTime(seconds) {
-            if (isNaN(seconds) || seconds < 0) return "00:00";
-            const m = Math.floor(seconds / 60);
-            const s = seconds % 60;
-            return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-        }
-
-        // Función principal del temporizador
-        function runTimer() {
-            if (isBreak) {
-                breakTimeLeft--;
-                document.title = `Descanso: ${formatTime(breakTimeLeft)} - StudyOmo`;
-                if (breakTimeLeft < 0) {
-                    isBreak = false;
-                    const pomodoroMinutes = parseInt(pomodoroInput.value, 10) || 25;
-                    pomodoroTimeLeft = pomodoroMinutes * 60;
-                    alert("¡El descanso ha terminado! Es hora de concentrarse.");
-                }
-            } else {
-                pomodoroTimeLeft--;
-                document.title = `Foco: ${formatTime(pomodoroTimeLeft)} - StudyOmo`;
-                if (pomodoroTimeLeft < 0) {
-                    attempts++;
-                    // Si tienes un display de intentos, lo actualizas aquí
-                    if(attemptsInput) attemptsInput.value = attempts; 
-                    
-                    isBreak = true;
-                    const breakMinutes = parseInt(breakInput.value, 10) || 5;
-                    breakTimeLeft = breakMinutes * 60;
-                    alert("¡Buen trabajo! Has completado un Pomodoro. Tomate un descanso.");
-                }
+        if (!response.ok) {
+            if (response.status === 404) {
+                throw new Error(`La tarea con ID ${idTarea} no existe`);
             }
+            throw new Error(`Error ${response.status} al obtener la información de la tarea`);
         }
 
-        // Event listener para el botón de inicio
-        startButton.addEventListener('click', () => {
-            if (isRunning) return;
+        const tareaData = await response.json();
+        console.log('Datos de la tarea:', tareaData);
+        console.log('Fecha de entrega recibida:', tareaData.fechaEntrega);
+        console.log('Tipo de fechaEntrega:', typeof tareaData.fechaEntrega);
 
-            // Leer los valores de los inputs en minutos
-            const pomodoroMinutes = parseInt(pomodoroInput.value, 10);
-            const breakMinutes = parseInt(breakInput.value, 10);
-            
-            // Validar y establecer duraciones en segundos (con valores por defecto)
-            const POMODORO_DURATION = (pomodoroMinutes > 0 ? pomodoroMinutes : 25) * 60;
-            const BREAK_DURATION = (breakMinutes > 0 ? breakMinutes : 5) * 60;
-            
-            // Inicializar los contadores de tiempo
-            pomodoroTimeLeft = POMODORO_DURATION;
-            breakTimeLeft = BREAK_DURATION;
+        // Hacer fetch para obtener el nombre del grupo
+        try {
+            const grupoResponse = await fetch(`http://100.29.28.174:7000/grupos/${tareaData.idGrupo}`);
+            if (grupoResponse.ok) {
+                const grupoData = await grupoResponse.json();
+                grupoNombre.textContent = grupoData.nombre;
+            } else {
+                grupoNombre.textContent = `Grupo ${tareaData.idGrupo}`;
+            }
+        } catch (error) {
+            console.error('Error al obtener información del grupo:', error);
+            grupoNombre.textContent = `Grupo ${tareaData.idGrupo}`;
+        }
 
-            // Actualizar estado y UI
-            isRunning = true;
-            startButton.textContent = "Objetivo en curso...";
-            startButton.disabled = true;
-            
-            // Deshabilitar inputs para no cambiar los tiempos a mitad de la sesión
-            pomodoroInput.disabled = true;
-            breakInput.disabled = true;
-            if (limitInput) limitInput.disabled = true;
-            if (totalInput) totalInput.disabled = true;
-            if (attemptsInput) attemptsInput.disabled = true;
+        // Guardar datos importantes
+        recursoUrl = tareaData.recursoURL; // Cambiar de 'recurso' a 'recursoURL'
+        
+        // Parsear la fecha - viene como array [año, mes, día, hora, minuto]
+        let fechaEntrega;
+        try {
+            if (Array.isArray(tareaData.fechaEntrega)) {
+                const [año, mes, dia, hora, minuto] = tareaData.fechaEntrega;
+                // Nota: En JavaScript, los meses van de 0-11, por eso restamos 1
+                fechaEntrega = new Date(año, mes - 1, dia, hora, minuto);
+            } else {
+                // Si por alguna razón viene en otro formato
+                fechaEntrega = new Date(tareaData.fechaEntrega);
+            }
+        } catch (error) {
+            console.error('Error al parsear fecha:', error);
+            fechaEntrega = new Date(); // Fecha actual como fallback
+        }
+        
+        const fechaActual = new Date();
 
-            // Iniciar el temporizador
-            timerInterval = setInterval(runTimer, 1000);
-            alert("¡Objetivo iniciado! El tiempo se mostrará en la pestaña del navegador.");
-        });
+        // Renderizar información básica
+        tareaTitulo.textContent = tareaData.titulo;
+        tareaDescripcion.textContent = tareaData.descripcion;
+        
+        // Formatear y mostrar fecha límite
+        const opcionesFecha = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        };
+        
+        // Verificar que la fecha sea válida antes de formatear
+        if (!isNaN(fechaEntrega.getTime())) {
+            fechaLimite.textContent = fechaEntrega.toLocaleDateString('es-ES', opcionesFecha);
+        } else {
+            fechaLimite.textContent = 'Fecha no disponible';
+        }
+        
+        // Mostrar información de pomodoros
+        tiempoPomodoro.textContent = `${tareaData.duracionPomodoro} minutos`;
+        tiempoDescanso.textContent = `${tareaData.duracionDescanso} minutos`;
+        totalPomodoros.textContent = `${tareaData.totalPomodoros} pomodoros`;
+
+        // Verificar si la tarea está vencida
+        if (fechaActual > fechaEntrega) {
+            // Tarea vencida - deshabilitar botones y mostrar mensaje
+            materialBtn.disabled = true;
+            startBtn.disabled = true;
+            mensajeVencida.style.display = 'block';
+        } else {
+            // Tarea vigente - habilitar botones
+            materialBtn.disabled = false;
+            startBtn.disabled = false;
+            
+            // Configurar el botón de material
+            if (recursoUrl) {
+                materialBtn.addEventListener('click', () => {
+                    // Reemplazar "recursos" por "archivos" en la URL
+                    const urlCompleta = `http://100.29.28.174:7000/archivos/${recursoUrl}`;
+                    
+                    // Descargar y abrir el recurso en nueva pestaña
+                    window.open(urlCompleta, '_blank');
+                });
+            } else {
+                // Si no hay recurso, deshabilitar el botón
+                materialBtn.disabled = true;
+                materialBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Sin material disponible
+                `;
+            }
+
+            // Configurar el botón de iniciar objetivo
+            startBtn.addEventListener('click', () => {
+                // Guardar información adicional en localStorage para la página del cronómetro
+                localStorage.setItem('tareaInfo', JSON.stringify({
+                    titulo: tareaData.titulo,
+                    descripcion: tareaData.descripcion,
+                    duracionPomodoro: tareaData.duracionPomodoro,
+                    duracionDescanso: tareaData.duracionDescanso,
+                    totalPomodoros: tareaData.totalPomodoros,
+                    fechaEntrega: tareaData.fechaEntrega
+                }));
+
+                // Redirigir a la página del cronómetro con el ID como parámetro
+                // Ajusta la ruta según tu estructura de archivos
+                window.location.href = `./../groupObjective/groupObjective.html?idTarea=${idTarea}`;
+            });
+        }
+
+    } catch (error) {
+        console.error('Error al cargar la información de la tarea:', error);
+        
+        let mensajeError = 'Error al cargar la información de la tarea.';
+        if (error.message.includes('no existe')) {
+            mensajeError = error.message;
+        }
+        
+        alert(mensajeError + ' Por favor, verifique el ID de la tarea.');
+        
+        // Mostrar mensaje de error en la interfaz
+        grupoNombre.textContent = 'Error';
+        tareaTitulo.textContent = 'Tarea no encontrada';
+        tareaDescripcion.textContent = error.message;
+        fechaLimite.textContent = '-';
+        tiempoPomodoro.textContent = '-';
+        tiempoDescanso.textContent = '-';
+        totalPomodoros.textContent = '-';
+        
+        // Deshabilitar botones
+        materialBtn.disabled = true;
+        startBtn.disabled = true;
     }
 });
-
-
- const startButton = document.getElementById('start-objective-btn');
-    const creationView = document.getElementById('creation-view');
-    const timerView = document.getElementById('timer-view');
-
-    // 2. Comprobar que todos los elementos existen para evitar errores
-    if (startButton && creationView && timerView) {
-        
-        // 3. Añadir el "escuchador de eventos" al botón
-        startButton.addEventListener('click', () => {
-
-            console.log("Botón 'Crear Objetivo' presionado. Cambiando a la vista del temporizador.");
-
-            // 4. Ocultar la vista de creación
-            creationView.classList.add('hidden');
-
-            // 5. Mostrar la vista del temporizador
-            timerView.classList.remove('hidden');
-
-            // Opcional: Aquí podrías iniciar la lógica de tu temporizador
-            // por ejemplo, llamando a una función como iniciarPomodoro();
-        });
-    } else {
-        // Mensaje de error si no se encuentra alguno de los elementos necesarios
-        console.error("No se pudo encontrar uno de los elementos necesarios: start-objective-btn, creation-view o timer-view.");
-    }
-    
-    
