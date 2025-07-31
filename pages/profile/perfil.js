@@ -1,82 +1,157 @@
-// Espera a que todo el contenido HTML esté cargado antes de ejecutar el script.
 document.addEventListener('DOMContentLoaded', () => {
+    const API_URL = 'http://100.29.28.174:7000';
+    const idUsuario = localStorage.getItem('idUsuario');
+    const nombreUsuario = localStorage.getItem('usuarioNombre');
 
-    // --- CONFIGURACIÓN DE MEDALLAS ---
-    // Define las URLs de las imágenes y los umbrales para cada categoría de medalla.
-    // Esto centraliza la configuración y facilita futuras modificaciones.
-    const MEDAL_CONFIG = {
-        locked: 'https://i.ibb.co/L8yX2N3/medal-locked.png', // Imagen para medallas no obtenidas
-
-        tiempo: { // Categoría: Tiempo Efectivo
-            oro:    { threshold: 12, img: 'https://i.ibb.co/GcvJ2kJ/tiempo-oro.png' },
-            plata:  { threshold: 6,  img: 'https://i.ibb.co/2Z5Yx0f/tiempo-plata.png' },
-            bronce: { threshold: 2,  img: 'https://i.ibb.co/Qn3cFN3/tiempo-bronce.png' }
-        },
-        pmdro: { // Categoría: Pomodoros Terminados
-            oro:    { threshold: 100, img: 'https://i.ibb.co/P9gNfrH/pmdro-oro.png' },
-            plata:  { threshold: 50,  img: 'https://i.ibb.co/cQhB9V5/pmdro-plata.png' },
-            bronce: { threshold: 10,  img: 'https://i.ibb.co/mHq3w5W/pmdro-bronce.png' }
-        },
-        objetivo: { // Categoría: Objetivos Alcanzados
-            oro:    { threshold: 50, img: 'https://i.ibb.co/3k9Yv1Q/objetivo-oro.png' },
-            plata:  { threshold: 30, img: 'https://i.ibb.co/8N1cM4Y/objetivo-plata.png' },
-            bronce: { threshold: 10, img: 'https://i.ibb.co/j3B1tY0/objetivo-bronce.png' }
-        },
-        intento: { // Categoría: Intentos Fallidos
-            oro:    { threshold: 50, img: 'https://i.ibb.co/z5pB0QJ/intento-oro.png' },
-            plata:  { threshold: 30, img: 'https://i.ibb.co/tCg9Hk0/intento-plata.png' },
-            bronce: { threshold: 10, img: 'https://i.ibb.co/Jqf9VZN/intento-bronce.png' }
-        }
-    };
-
-    // --- SIMULACIÓN DE DATOS DEL BACKEND ---
-    // En una aplicación real, obtendrías este objeto desde tu API.
-    // Nota la nueva estructura del objeto "estadisticas".
-    const datosUsuarioJSON = {
-        "nombre": "Tony DHH",
-        "estadisticas": {
-            "tiempoEfectivoHoras": 7,   // Debería mostrar la medalla de plata
-            "pomodorosTerminados": 101, // Debería mostrar la medalla de oro
-            "objetivosAlcanzados": 12,  // Debería mostrar la medalla de bronce
-            "intentosFallidos": 5       // No alcanza el bronce, mostrará la medalla bloqueada
-        },
-        "diasRacha": 7
-    };
-    
-    // --- LÓGICA DE LA APLICACIÓN ---
-
-    /**
-     * Determina la URL de la imagen de la medalla a mostrar según el valor y la categoría.
-     * @param {string} categoria - El nombre de la categoría (ej. 'tiempo', 'pmdro').
-     * @param {number} valor - El valor numérico del usuario para esa categoría.
-     * @returns {string} La URL de la imagen de la medalla correspondiente.
-     */
-    function obtenerMedallaSrc(categoria, valor) {
-        const config = MEDAL_CONFIG[categoria];
-        if (valor >= config.oro.threshold) return config.oro.img;
-        if (valor >= config.plata.threshold) return config.plata.img;
-        if (valor >= config.bronce.threshold) return config.bronce.img;
-        return MEDAL_CONFIG.locked; // Devuelve la imagen "bloqueada" si no se alcanza ningún umbral.
-    }
-    
-    /**
-     * Carga todos los datos del perfil del usuario en los elementos HTML correspondientes.
-     * @param {object} datos - El objeto con los datos del usuario.
-     */
-    function cargarDatosDePerfil(datos) {
-        // 1. Cargar nombre de usuario y racha
-        document.getElementById('userData-name').textContent = `Usuario: ${datos.nombre} | ${datos.idUsuario}`;
-        document.getElementById('userData-streak').textContent = datos.diasRacha;
-
-        // 2. Cargar las medallas correctas para cada categoría
-        const stats = datos.estadisticas;
-        document.getElementById('medal-img-tiempo').src = obtenerMedallaSrc('tiempo', stats.tiempoEfectivoHoras);
-        document.getElementById('medal-img-pmdro').src = obtenerMedallaSrc('pmdro', stats.pomodorosTerminados);
-        document.getElementById('medal-img-objetivo').src = obtenerMedallaSrc('objetivo', stats.objetivosAlcanzados);
-        document.getElementById('medal-img-intento').src = obtenerMedallaSrc('intento', stats.intentosFallidos);
+    if (!idUsuario || !nombreUsuario) {
+        console.error("No se encontró el ID o nombre del usuario.");
+        document.getElementById('userData-name').textContent = "Nombre no disponible";
+        return;
     }
 
-    // 3. Llamar a la función principal con los datos simulados para poblar la página.
-    cargarDatosDePerfil(datosUsuarioJSON);
+    // Obtener usuario desde API
+    fetch(`${API_URL}/usuarios/${idUsuario}`)
+        .then(res => res.json())
+        .then(data => {
+            const avatarId = data.avatar;
 
+            // Si difiere, actualizamos en LS
+            if (avatarId != avatarLS) {
+                avatarImg.src = `/assets/icons/${avatarId}.png`;
+                if (navbarAvatar) navbarAvatar.src = `/assets/icons/${avatarId}.png`;
+                localStorage.setItem('usuarioAvatar', avatarId);
+            }
+
+            activarSelectorAvatar(avatarId);
+            cargarDatosDePerfil(data);
+
+            fetch(`${API_URL}/usuarios/${idUsuario}/racha`)
+                .then(res => res.json())
+                .then(racha => {
+                    if (racha && racha.rachaActual != null) {
+                        document.getElementById('userData-streak').textContent = racha.rachaActual;
+                    } else {
+                        document.getElementById('userData-streak').textContent = '0';
+                    }
+                })
+                .catch(err => {
+                    console.error("Error al obtener racha del usuario:", err);
+                    document.getElementById('userData-streak').textContent = '0';
+                });
+        })
+        .catch(err => {
+            console.error("Error al cargar datos de usuario:", err);
+        });
+
+    function activarSelectorAvatar(avatarActual) {
+        avatarImg.addEventListener('click', () => {
+            let selector = document.querySelector('.avatar-selector');
+            if (selector) {
+                selector.remove();
+                return;
+            }
+
+            selector = document.createElement('div');
+            selector.className = 'avatar-selector';
+            selector.style.cssText = `
+                    position: absolute;
+                    top: 30%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: white;
+                    padding: 20px;
+                    border-radius: 15px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 15px;
+                    z-index: 999;
+                    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+                `;
+
+            for (let i = 1; i <= 9; i++) {
+                const img = document.createElement('img');
+                img.src = `/assets/icons/${i}.png`;
+                img.style.width = '80px';
+                img.style.cursor = 'pointer';
+                img.style.border = i === avatarActual ? '3px solid #2980B9' : '2px solid transparent';
+                img.style.borderRadius = '10px';
+
+                img.addEventListener('click', () => {
+                    fetch(`${API_URL}/usuarios/${idUsuario}/avatar`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ avatar: i })
+                    })
+                        .then(res => {
+                            if (!res.ok) throw new Error("No se pudo actualizar el avatar");
+
+                            avatarImg.src = `/assets/icons/${i}.png`;
+                            if (navbarAvatar) navbarAvatar.src = `/assets/icons/${i}.png`;
+
+                            localStorage.setItem('usuarioAvatar', i);
+                            selector.remove();
+                        })
+                        .catch(err => {
+                            console.error("❌ Error al actualizar avatar:", err);
+                            alert("No se pudo actualizar el avatar.");
+                        });
+                });
+
+                selector.appendChild(img);
+            }
+
+            document.body.appendChild(selector);
+        });
+    }
+
+    function cargarDatosDePerfil(usuario) {
+        document.getElementById('userData-name').textContent = usuario.nombre;
+        document.getElementById('userData-streak').textContent = usuario.diasRacha || '0';
+
+        const stats = usuario.estadisticas || {
+            tiempoEfectivoHoras: 0,
+            pomodorosTerminados: 0,
+            objetivosAlcanzados: 0,
+            intentosFallidos: 0
+        };
+
+        const medallas = [
+            { id: 'medal-img-tiempo', categoria: 't', valor: stats.tiempoEfectivoHoras },
+            { id: 'medal-img-pmdro', categoria: 'p', valor: stats.pomodorosTerminados },
+            { id: 'medal-img-objetivo', categoria: 'c', valor: stats.objetivosAlcanzados },
+            { id: 'medal-img-intento', categoria: 'm', valor: stats.intentosFallidos }
+        ];
+
+        medallas.forEach(({ id, categoria, valor }) => {
+            const imgElement = document.getElementById(id);
+            const srcId = obtenerMedallaReal(categoria, valor);
+
+            if (srcId) {
+                imgElement.src = `/assets/icons/${srcId}.jpg`;
+                imgElement.style.display = 'block';
+            } else {
+                imgElement.style.display = 'none';
+            }
+        });
+    }
+
+    function obtenerMedallaReal(categoria, valor) {
+        if (valor == null || valor === 0) return null;
+
+        const niveles = {
+            t: { oro: 12, plata: 6, bronce: 2 },
+            p: { oro: 100, plata: 50, bronce: 10 },
+            c: { oro: 50, plata: 30, bronce: 10 },
+            m: { oro: 50, plata: 30, bronce: 10 }
+        };
+
+        const conf = niveles[categoria];
+        if (!conf) return null;
+
+        if (valor >= conf.oro) return `1${categoria}`;
+        if (valor >= conf.plata) return `2${categoria}`;
+        if (valor >= conf.bronce) return `3${categoria}`;
+        return null;
+    }
 });

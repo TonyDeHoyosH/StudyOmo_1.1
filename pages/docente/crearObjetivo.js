@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", async () => {
+    
     const idUsuario = localStorage.getItem("idUsuario");
     const idGrupo = localStorage.getItem("idGrupo"); // Recuperamos el idGrupo desde el localStorage
 
     // Verificamos si el usuario está logueado
     if (!idUsuario) {
         alert("No has iniciado sesión.");
-        window.location.href = "/login"; // Redirige a la página de login
+       // window.location.href = "/login"; // Redirige a la página de login
         return;
     }
 

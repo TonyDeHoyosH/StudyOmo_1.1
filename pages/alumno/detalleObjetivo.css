@@ -1,0 +1,284 @@
+/* =========================================
+   Variables Globales de Estilo
+   ========================================= */
+:root {
+    --primary-bg: #1A5276;         /* Fondo azul principal */
+    --card-bg: #FFFFFF;            /* Fondo de la tarjeta blanca */
+    --button-bg: #2980B9;          /* Color de fondo del botón primario */
+    --button-hover-bg: #2471A3;    /* Color del botón al pasar el mouse */
+    --text-primary: #34495E;       /* Color de texto principal (oscuro) */
+    --text-light: #FFFFFF;         /* Color de texto claro (para header/botones) */
+    --icon-color: #D6EAF8;         /* Color de los íconos de navegación */
+    --text-label-blue: #0B5394;    /* Color azul para las etiquetas (Ej: "Objetivo:") */
+    --text-value-grey: #808B96;    /* Color gris para los valores de los detalles */
+}
+
+
+/* =========================================
+   Reseteo Básico y Estilos del Body
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 2rem 0.75rem 4rem; 
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+
+.header__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.header__logo {
+    width: 36px;
+    height: 36px;
+}
+
+.header__title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+.nav__list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 3rem;
+}
+
+.nav__link {
+    color: var(--icon-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav__link svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--icon-color);
+    transition: stroke 0.5s ease;
+}
+
+.nav__link:hover svg {
+    stroke: var(--text-light);
+}
+
+.user-profile__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--text-light);
+}
+
+.user-profile a {
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.user-profile__avatar:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   Estilos del Header
+   ========================================= */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 2rem;
+    background-color: var(--primary-bg); /* Asegura que el fondo del header sea el azul */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.header__logo {
+    width: 36px;
+    height: 36px;
+}
+
+.header__title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+.user-profile__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--text-light);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.user-profile__avatar:hover {
+    transform: scale(1.1);
+}
+
+
+/* =========================================
+   Contenido Principal y Tarjeta de Objetivo
+   ========================================= */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.objective-card {
+    position: relative;
+    background-color: var(--card-bg);
+    border-radius: 25px;
+    padding: 2rem 3rem;
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.objective-card__logo-bg {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 220px;
+    height: 220px;
+    opacity: 1;
+    z-index: 0;
+}
+
+.objective-card__logo-bg img {
+    width: 100%;
+    height: 100%;
+}
+
+.objective-card__content {
+    position: relative;
+    z-index: 1;
+    padding-left: 4rem;
+}
+
+.objective-info {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    word-break: break-word; /* Evita que textos largos se desborden */
+}
+
+.label {
+    color: var(--text-label-blue);
+    font-weight: 800;
+    margin-right: 0.5rem;
+}
+
+
+/* =========================================
+   Grid de Detalles y Botones
+   ========================================= */
+.details-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    align-items: center;
+}
+
+.details-grid .label {
+    font-weight: 800;
+    text-align: left;
+}
+
+.time-display {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-value-grey);
+}
+
+.objective-actions {
+    display: flex;
+    justify-content: center; /* Centra el botón al ser el único elemento */
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.btn {
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-size: 1.1rem; /* Un poco más grande para destacar */
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn--primary {
+    background-color: var(--button-bg);
+    color: var(--text-light);
+}
+
+.btn--primary:hover:not(:disabled) {
+    background-color: var(--button-hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(41, 128, 185, 0.3);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #95a5a6; /* Un gris para indicar que está deshabilitado */
+}

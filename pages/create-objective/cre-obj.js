@@ -1,10 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     const formulario = document.getElementById("objective-form");
     const inputNombre = document.getElementById("objective-name");
     const inputDescripcion = document.getElementById("objective-description");
     const inputPomodoros = document.getElementById("total-pomodoros");
     const inputPomodoroTime = document.getElementById("pomodoro-time");
     const inputBreakTime = document.getElementById("break-time");
+
+    // Función para limpiar idSesion del localStorage cuando se navega fuera del objetivo
+    const setupNavigationCleanup = () => {
+        // Limpiar idSesion cuando se abandona la página (excepto si va a objective.html)
+        window.addEventListener('beforeunload', (e) => {
+            // No limpiar si estamos navegando a la vista del objetivo
+            if (!document.referrer.includes('objective.html')) {
+                localStorage.removeItem('idSesion');
+            }
+        });
+
+        // También limpiar idSesion si se detecta navegación a otras secciones
+        const cleanupOnNavigation = () => {
+            const currentPath = window.location.pathname;
+            const isObjectiveRelated = currentPath.includes('objective') || 
+                                     currentPath.includes('cre-obj') ||
+                                     currentPath.includes('create-objective');
+            
+            if (!isObjectiveRelated) {
+                localStorage.removeItem('idSesion');
+            }
+        };
+
+        // Verificar al cargar la página
+        cleanupOnNavigation();
+    };
 
     // Función para limpiar idSesion del localStorage cuando se navega fuera del objetivo
     const setupNavigationCleanup = () => {
@@ -79,8 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (response.ok) {
                 const data = await response.json();
-                alert('Objetivo creado exitosamente');
-                console.log(data); // Muestra la respuesta de la API (incluye idObjetivo y idSesion)
+                console.log('Respuesta completa de la API:', data); // ✅ Ver qué devuelve exactamente
 
                 // Guardar idObjetivo e idSesion en localStorage
                 localStorage.setItem('idObjetivo', data.idObjetivo);
@@ -105,6 +131,9 @@ document.addEventListener("DOMContentLoaded", () => {
             alert('Error en la conexión con el servidor');
         }
     });
+
+    // Configurar la limpieza automática del localStorage
+    setupNavigationCleanup();
 
     // Configurar la limpieza automática del localStorage
     setupNavigationCleanup();

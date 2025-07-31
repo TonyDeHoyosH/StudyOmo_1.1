@@ -1,95 +1,78 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const crearClaseButton = document.getElementById("crearClaseBtn");
-    const classNameInput = document.getElementById("class-name");
+/* crearClase.js - versión corregida con payload válido */
+document.addEventListener('DOMContentLoaded', () => {
 
-    // Generar código único para la clase
-    const generateRandomCode = () => {
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        const numbers = "0123456789";
-        let codeChars = [];
+  const inputNombre   = document.getElementById('class-name');
+  const spanCodigo    = document.querySelector('.code-number');
+  const btnCrearClase = document.getElementById('crearClaseBtn');
 
-        for (let i = 0; i < 3; i++) {
-            codeChars.push(numbers[Math.floor(Math.random() * numbers.length)]);
-        }
-        for (let i = 0; i < 3; i++) {
-            codeChars.push(letters[Math.floor(Math.random() * letters.length)]);
-        }
 
-        // Mezclar caracteres generados
-        for (let i = codeChars.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [codeChars[i], codeChars[j]] = [codeChars[j], codeChars[i]];
-        }
+  function generarCodigo () {
+    const L = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const N = '0123456789';
+    const arr = [];
+    for (let i = 0; i < 3; i++) arr.push(N[Math.random() * 10  | 0]);
+    for (let i = 0; i < 3; i++) arr.push(L[Math.random() * 26 | 0]);
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.random() * (i + 1) | 0;
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr.join('');
+  }
 
-        return codeChars.join('');
-    };
+  let codigoActual = generarCodigo();
+  spanCodigo.textContent = codigoActual;
 
-    // Lógica para cuando se hace clic en el botón de "Crear Clase"
-    crearClaseButton.addEventListener("click", async () => {
-        const className = classNameInput.value.trim(); // Recuperamos el valor y eliminamos espacios al inicio y final.
+  btnCrearClase.addEventListener('click', () => crearClaseConRetry(5));
 
-        // Verificar que el nombre de la clase no esté vacío.
-        if (!className) {
-            alert("Por favor, ingresa un nombre para la clase.");
-            return; // Si el nombre está vacío, detenemos la ejecución aquí y no enviamos la solicitud.
-        }
+  async function crearClaseConRetry(maxIntentos) {
+    const nombre = inputNombre.value.trim();
+    if (!nombre) {
+      alert('Ingresa un nombre para la clase');
+      return;
+    }
 
-        const code = generateRandomCode(); // Generamos un código único para la clase.
-        const idUsuario = localStorage.getItem("idUsuario");
-
-        if (!idUsuario) {
-            alert("No has iniciado sesión.");
-            window.location.href = "/login"; // O la URL correcta de login
-            return;
-        }
-
-        // Datos para enviar a la API
-        const classData = {
-            nombre: className,
-            codigoUnico: code,
-            idUsuarioCreador: parseInt(idUsuario),  // Convertimos el idUsuario a número
+    let intentos = 0;
+    while (intentos < maxIntentos) {
+      try {
+        const payload = {
+          nombre,
+          codigoUnico: codigoActual,
+          idUsuario: idUsuario  // ✅ ¡aquí está el fix!
         };
 
-        try {
-            // Hacemos la solicitud POST para crear la clase
-            const response = await fetch("http://100.29.28.174:7000/grupos", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(classData),
-            });
+        const res = await fetch('http://100.29.28.174:7000/grupos', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
 
-            // Leemos la respuesta del servidor como texto
-            const responseText = await response.text();  // Obtenemos la respuesta como texto
-
-            // Intentamos convertir la respuesta en JSON solo si es válida
-            let responseData;
-            try {
-                responseData = JSON.parse(responseText);
-            } catch (e) {
-                responseData = { message: responseText };  // Si no es JSON, lo tratamos como texto
-            }
-
-            // Si la respuesta contiene éxito (mensaje de grupo creado)
-            if (response.ok) {
-                console.log("Clase creada con éxito:", responseData);
-                alert("Clase creada exitosamente!");
-
-                // Aquí, guardamos solo el idGrupo del grupo recién creado en el localStorage
-                const idGrupo = responseData.idGrupo;  // Solo extraemos el idGrupo
-                localStorage.setItem("idGrupo", idGrupo);  // Guardamos solo el ID del grupo recién creado
-
-                // Redirigir a la vista de "Mis clases"
-                window.location.href = "/StudyOmo/pages/Docente/verClase.html";  // Redirige a la vista de Mis Clases
-            } else {
-                // Si la respuesta no es OK, mostramos el error
-                console.error("Error en la creación de la clase:", responseData);
-                alert("Error al crear la clase: " + responseData.message);
-            }
-        } catch (error) {
-            console.error("Error al conectar con la API:", error);
-            alert("Error en la conexión con el servidor");
+        if (res.ok) {
+          const { idGrupo } = await res.json();
+          localStorage.setItem('idGrupo', idGrupo);
+          window.location.href = `/pages/docente/verClase.html?grupo=${idGrupo}`;
+          return;
         }
-    });
+
+        const data = await res.json().catch(() => ({}));
+        const esDuplicado = res.status === 409 ||
+                            /c[oó]digo.*exist/i.test(data.message || '');
+
+        if (!esDuplicado) {
+          console.log('Error al crear la clase:', data.message || res.status);
+          alert(data.message || 'Error al crear la clase.');
+          return;
+        }
+
+        // reintento por código duplicado
+        intentos++;
+        codigoActual = generarCodigo();
+        spanCodigo.textContent = codigoActual;
+
+      } catch (err) {
+        console.error(`Intento ${intentos + 1}:`, err.message);
+        alert('No se pudo crear la clase. Intenta más tarde.');
+        return;
+      }
+    }
+  }
 });

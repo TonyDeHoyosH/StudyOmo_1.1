@@ -17,15 +17,92 @@ document.addEventListener('DOMContentLoaded', () => {
         tiempoAcumulado: 0 // Tiempo acumulado de pomodoros anteriores
     };
 
-    // Obtener el ID del objetivo de la URL
+    // ✅ NUEVO: Variables para datos de sesión previa
+    let sessionData = {
+        duracionRealPrevia: 0,
+        descansoRealPrevio: 0,
+        intentosPrevios: 0,
+        pomodorosPrevios: 0 // ✅ CORREGIDO: Cambiar nombre para claridad
+    };
+
+    // ✅ CORREGIDO: Obtener IDs al inicio
     const urlParams = new URLSearchParams(window.location.search);
     const objectiveId = urlParams.get('id');
+    let sessionId = urlParams.get('idSesion') || localStorage.getItem('idSesion');
 
     if (!objectiveId) {
         alert('No se encontró el ID del objetivo');
         window.location.href = '/home/home.html';
         return;
     }
+
+    // ✅ NUEVO: Log para debugging
+    console.log('objectiveId:', objectiveId);
+    console.log('sessionId obtenido:', sessionId);
+    console.log('sessionId desde URL:', urlParams.get('idSesion'));
+    console.log('sessionId desde localStorage:', localStorage.getItem('idSesion'));
+
+    // ✅ FUNCIÓN CORREGIDA: Cargar datos de sesión previa con logs detallados
+    const loadSessionDataFromAPI = async () => {
+        console.log('🔍 === INICIANDO CARGA DE DATOS DE SESIÓN ===');
+        console.log('sessionId disponible:', sessionId);
+        
+        if (!sessionId) {
+            console.log('❌ No hay idSesion, iniciando sesión nueva');
+            console.log('sessionData se mantiene:', sessionData);
+            return;
+        }
+
+        try {
+            const url = `http://100.29.28.174:7000/sesiones/${sessionId}`;
+            console.log('🌐 Haciendo GET a:', url);
+            
+            const response = await fetch(url);
+            console.log('📡 Respuesta del GET:', response.status, response.statusText);
+            
+            if (!response.ok) {
+                console.warn('⚠️ No se pudo cargar la sesión previa, iniciando nueva');
+                console.log('sessionData se mantiene:', sessionData);
+                return;
+            }
+            
+            const data = await response.json();
+            console.log('📋 DATOS COMPLETOS recibidos del GET:', data);
+            
+            // Verificar que los campos existen
+            console.log('🔍 Verificando campos individuales:');
+            console.log('  data.duracionReal:', data.duracionReal, typeof data.duracionReal);
+            console.log('  data.descansoReal:', data.descansoReal, typeof data.descansoReal);
+            console.log('  data.intentos:', data.intentos, typeof data.intentos);
+            console.log('  data.pomodoros:', data.pomodoros, typeof data.pomodoros);
+            
+            // Guardar datos previos con conversión explícita
+            const duracionPrev = parseInt(data.duracionReal) || 0;
+            const descansoPrev = parseInt(data.descansoReal) || 0;
+            const intentosPrev = parseInt(data.intentos) || 0;
+            const pomodorosPrev = parseInt(data.pomodoros) || 0;
+            
+            console.log('🔢 Valores convertidos:');
+            console.log('  duracionPrev:', duracionPrev);
+            console.log('  descansoPrev:', descansoPrev);
+            console.log('  intentosPrev:', intentosPrev);
+            console.log('  pomodorosPrev:', pomodorosPrev);
+            
+            // Actualizar sessionData
+            sessionData.duracionRealPrevia = duracionPrev;
+            sessionData.descansoRealPrevio = descansoPrev;
+            sessionData.intentosPrevios = intentosPrev;
+            sessionData.pomodorosPrevios = pomodorosPrev; // ✅ CORREGIDO: Ahora se suma
+            
+            console.log('✅ sessionData ACTUALIZADO:', sessionData);
+            
+        } catch (error) {
+            console.error('❌ Error al cargar datos de sesión previa:', error);
+            console.log('sessionData se mantiene:', sessionData);
+        }
+        
+        console.log('🔍 === FIN CARGA DE DATOS DE SESIÓN ===');
+    };
 
     // Solicitar permiso para notificaciones al cargar
     const requestNotificationPermission = async () => {
@@ -46,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`http://100.29.28.174:7000/objetivos/${objectiveId}`);
             if (!response.ok) throw new Error('Error al cargar el objetivo');
             const objectiveData = await response.json();
+            
             return {
                 nombre: objectiveData.nombre,
                 pomodoroTime: objectiveData.duracionPomodoro,
@@ -60,21 +138,55 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Función para enviar las métricas al backend
+    // ✅ FUNCIÓN CORREGIDA: Sumar correctamente los datos previos + actuales (incluyendo pomodoros)
     const enviarMetricasAlBackend = async (estado) => {
+        if (!sessionId) {
+            console.warn('No hay idSesion, no se pueden enviar métricas');
+            return;
+        }
+
+        // ✅ PASO 1: Obtener datos actuales de la sesión en curso
+        let duracionActual = sessionMetrics.tiempoEfectivo;
+        let descansoActual = sessionMetrics.objetivoAlcanzado ? 1 : 0;
+        let intentosActuales = sessionMetrics.intentosFallidos;
+        let pomodorosActuales = sessionMetrics.pomodorosCompletados; // ✅ NUEVO: Pomodoros de esta sesión
+
+        console.log('=== CÁLCULO DE MÉTRICAS ===');
+        console.log('Datos PREVIOS de la sesión (del GET):', sessionData);
+        console.log('Datos ACTUALES de esta sesión:', {
+            duracionActual,
+            descansoActual, 
+            intentosActuales,
+            pomodorosActuales, // ✅ NUEVO
+            estado
+        });
+
+        // ✅ PASO 2: Sumar datos previos + datos actuales (TODOS los campos)
+        const duracionRealFinal = sessionData.duracionRealPrevia + duracionActual;
+        const descansoRealFinal = sessionData.descansoRealPrevio + descansoActual;
+        const intentosFinal = sessionData.intentosPrevios + intentosActuales;
+        const pomodorosFinal = sessionData.pomodorosPrevios + pomodorosActuales; // ✅ NUEVO: Sumar pomodoros
+        
+        // ✅ PASO 3: Preparar datos para el PUT
         const datosAEnviar = {
-            duracionReal: sessionMetrics.tiempoEfectivo.toString(),
-            descansoReal: sessionMetrics.objetivoAlcanzado ? "1" : "0",
-            intentos: sessionMetrics.intentosFallidos.toString(),
-            estado: estado,
-            pomodoros: sessionMetrics.pomodorosCompletados.toString()
+            duracionReal: duracionRealFinal.toString(),
+            descansoReal: descansoRealFinal.toString(), 
+            intentos: intentosFinal.toString(),
+            estado: estado, // Este se reemplaza, no se suma
+            pomodoros: pomodorosFinal.toString() // ✅ CORREGIDO: Ahora se suma
         };
 
-        console.log('Enviando métricas al backend:', datosAEnviar);
+        console.log('Datos FINALES a enviar (PREVIOS + ACTUALES):', datosAEnviar);
+        console.log('Cálculos:');
+        console.log(`  duracionReal: ${sessionData.duracionRealPrevia} + ${duracionActual} = ${duracionRealFinal}`);
+        console.log(`  descansoReal: ${sessionData.descansoRealPrevio} + ${descansoActual} = ${descansoRealFinal}`);
+        console.log(`  intentos: ${sessionData.intentosPrevios} + ${intentosActuales} = ${intentosFinal}`);
+        console.log(`  pomodoros: ${sessionData.pomodorosPrevios} + ${pomodorosActuales} = ${pomodorosFinal}`); // ✅ NUEVO
 
         try {
-            const response = await fetch('http://100.29.28.174:7000/sesiones', {
-                method: 'POST',
+            // ✅ PASO 4: Enviar PUT con datos sumados
+            const response = await fetch(`http://100.29.28.174:7000/sesiones/${sessionId}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -82,12 +194,52 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-                console.log('Métricas enviadas exitosamente');
+                console.log('✅ Métricas actualizadas exitosamente');
+                
+                // ✅ PASO 5: CRUCIAL - Actualizar TODOS los datos previos para próxima sesión
+                sessionData.duracionRealPrevia = duracionRealFinal;
+                sessionData.descansoRealPrevio = descansoRealFinal;
+                sessionData.intentosPrevios = intentosFinal;
+                sessionData.pomodorosPrevios = pomodorosFinal; // ✅ NUEVO: Actualizar pomodoros previos
+                
+                console.log('🔄 Datos previos actualizados para próxima sesión:', sessionData);
             } else {
-                console.error('Error al enviar las métricas');
+                console.error('❌ Error al actualizar las métricas');
             }
         } catch (error) {
-            console.error('Error al conectar con el backend:', error);
+            console.error('❌ Error al conectar con el backend:', error);
+        }
+    };
+
+    // ✅ NUEVA FUNCIÓN: Registrar actividad diaria para racha
+    const registrarActividadDiaria = async () => {
+        const idUsuario = localStorage.getItem('idUsuario');
+        
+        if (!idUsuario) {
+            console.warn('❌ No se encontró idUsuario para registrar actividad');
+            return;
+        }
+
+        try {
+            console.log('🗓 Registrando actividad diaria para racha...');
+            
+            const response = await fetch('http://100.29.28.174:7000/actividad', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idUsuario: parseInt(idUsuario)
+                })
+            });
+
+            if (response.ok) {
+                console.log('✅ Actividad registrada correctamente para racha (OBJETIVO)');
+            } else {
+                console.error('❌ Error al registrar actividad para racha');
+            }
+        } catch (error) {
+            console.error('❌ Error de red al registrar racha:', error);
         }
     };
 
@@ -108,7 +260,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sessionActive: false
         };
 
-        // Reiniciar métricas al reiniciar el estado
+        // ✅ IMPORTANTE: Solo reiniciar sessionMetrics (datos de la sesión actual)
+        // NO reiniciar sessionData (datos previos acumulados)
         sessionMetrics = {
             tiempoEfectivo: 0,
             pomodorosCompletados: 0,
@@ -117,6 +270,9 @@ document.addEventListener('DOMContentLoaded', () => {
             tiempoInicioPomodoro: null,
             tiempoAcumulado: 0
         };
+
+        console.log('🔄 Estado reiniciado - sessionData preservado:', sessionData);
+        console.log('🔄 sessionMetrics reiniciado:', sessionMetrics);
 
         document.getElementById('task-name').textContent = objective.nombre;
         updateUI();
@@ -168,25 +324,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // ✅ FUNCIÓN MODIFICADA: Actualizada para manejar el botón de cancelar
     const updateButtons = () => {
         const startBtn = document.getElementById('start-btn');
         const restartBtn = document.getElementById('restart-btn');
-        const stopBtn = document.getElementById('stop-btn'); // Agregar referencia al botón cancelar
+        const stopBtn = document.getElementById('stop-btn');
         
         if (state.status === 'running' || state.status === 'break') {
             startBtn.classList.add('hidden');
             restartBtn.classList.remove('hidden');
-            stopBtn.classList.remove('hidden'); // Mostrar botón cancelar durante sesión activa
+            stopBtn.classList.remove('hidden');
         } else if (state.status === 'completed') {
-            // Cuando está completado, mostrar botón play para repetir y ocultar cancelar
-            startBtn.classList.remove('hidden'); // ✅ MOSTRAR botón play para repetir objetivo
+            startBtn.classList.remove('hidden');
             restartBtn.classList.add('hidden');
-            stopBtn.classList.add('hidden'); // ✅ OCULTAR botón cancelar cuando completado
+            stopBtn.classList.add('hidden');
         } else {
             startBtn.classList.remove('hidden');
             restartBtn.classList.add('hidden');
-            stopBtn.classList.remove('hidden'); // Mostrar botón cancelar en estado idle
+            stopBtn.classList.remove('hidden');
         }
     };
 
@@ -201,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateProgressRing();
         updateTaskInfo();
         updateTaskCardState();
-        updateButtons(); // ✅ Esto ahora maneja correctamente el botón cancelar
+        updateButtons();
     };
     
     const handleActivityCheck = () => {
@@ -258,8 +412,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (notificationCheckInterval) clearTimeout(notificationCheckInterval);
         if (!state.sessionActive) return;
 
-        const minInterval = 5 * 1000;      // 30 segundos
-        const maxInterval = 10 * 1000;    // 1 minuto
+        const minInterval = 5 * 1000;
+        const maxInterval = 10 * 1000;
 
         const randomInterval = Math.floor(Math.random() * (maxInterval - minInterval + 1)) + minInterval;
 
@@ -286,7 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const startTimer = () => {
         if (state.timerInterval) return;
         
-        // ✅ Si el objetivo está completado, crear nueva sesión
+        // Si el objetivo está completado, crear nueva sesión
         if (state.status === 'completed') {
             // Reiniciar métricas para nueva sesión
             sessionMetrics = {
@@ -361,7 +515,6 @@ document.addEventListener('DOMContentLoaded', () => {
         showStatusMessage('Timer reiniciado al inicio 🔄');
     };
 
-    // ✅ FUNCIÓN MODIFICADA: Actualizada para manejar el final del timer
     const handleTimerEnd = () => {
         clearInterval(state.timerInterval);
         state.timerInterval = null;
@@ -387,12 +540,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 sessionMetrics.objetivoAlcanzado = true;
                 
-                updateUI(); // ✅ IMPORTANTE: Actualizar UI para ocultar botón cancelar
+                updateUI();
                 showStatusMessage('¡Objetivo completado! 🎉🏆', 5000);
                 updateObjectiveStatus('completado');
                 
                 // Enviar métricas como completado
                 enviarMetricasAlBackend('completado');
+                
+                // ✅ NUEVO: Registrar actividad diaria para racha después de completar objetivo
+                registrarActividadDiaria();
             } else {
                 setupSession(true);
                 startTimer();
@@ -402,7 +558,7 @@ document.addEventListener('DOMContentLoaded', () => {
             startTimer();
         }
     };
-    
+
     const updateObjectiveStatus = async (status) => {
         try {
             console.log(`Objetivo ${objectiveId} marcado como ${status}`);
@@ -412,25 +568,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // ✅ FUNCIÓN MODIFICADA: Verificar estado antes de mostrar modal
     const showDeleteModal = () => {
-        // ✅ VERIFICAR si el objetivo ya está completado
         if (state.status === 'completed') {
             showStatusMessage('❌ No se puede cancelar un objetivo ya completado', 3000);
-            return; // No mostrar modal si está completado
+            return;
         }
         modal.classList.add('visible');
     };
 
     const hideDeleteModal = () => modal.classList.remove('visible');
 
-    // ✅ FUNCIÓN MODIFICADA: Verificar estado antes de cancelar
     const stopTimer = () => {
-        // ✅ VERIFICAR si el objetivo ya está completado
         if (state.status === 'completed') {
             showStatusMessage('❌ No se puede cancelar un objetivo ya completado', 3000);
             hideDeleteModal();
-            return; // Salir sin hacer nada
+            return;
         }
         
         clearInterval(state.timerInterval);
@@ -469,8 +621,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inicializar la aplicación
     const initializeApp = async () => {
+        console.log('🚀 === INICIALIZANDO APLICACIÓN ===');
+        console.log('objectiveId:', objectiveId);
+        console.log('sessionId al inicializar:', sessionId);
+        
         await requestNotificationPermission();
+        
+        console.log('📡 Cargando datos de sesión previa...');
+        await loadSessionDataFromAPI();
+        
+        console.log('🎯 Inicializando estado del objetivo...');
         await resetState();
+        
+        console.log('✅ Aplicación inicializada correctamente');
     };
 
     initializeApp();

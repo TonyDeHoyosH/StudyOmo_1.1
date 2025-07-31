@@ -130,6 +130,13 @@ body {
     width: 250px;
     height: auto;
     border-radius: 50%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.stats-card__avatar-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(41, 128, 185, 0.6);
 }
 
 .stats-card__info {
@@ -155,16 +162,7 @@ body {
     gap: 0.5rem;
 }
 
-/* Icono de edición para el nombre de usuario */
-.stats-card__username::after {
-    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.85 0 0 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="M15 5l4 4"/></svg>');
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    vertical-align: middle;
-    cursor: pointer;
-    margin-left: 0.5rem; /* Espacio entre el texto y el icono */
-}
+
 
 
 .stats-card__section {
@@ -239,6 +237,63 @@ body {
     font-size: 0.8rem;
     font-weight: 600;
     line-height: 1.2;
+}
+
+.avatar-selector {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.avatar-selector__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 1rem;
+  max-width: 350px;
+  margin: 0 auto 1.2rem;
+}
+
+.avatar-option {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.avatar-option:hover {
+  transform: scale(1.05);
+}
+
+.avatar-option.selected {
+  border-color: var(--button-blue);
+}
+
+.avatar-confirm-btn {
+  background-color: var(--button-blue);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.avatar-confirm-btn:hover {
+  background-color: #1f618d;
 }
 
 .stats-card__avatar-container a {

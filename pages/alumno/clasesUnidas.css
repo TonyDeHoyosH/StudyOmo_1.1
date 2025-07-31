@@ -25,11 +25,14 @@ body {
     background-color: var(--primary-bg); 
     color: var(--text-primary); 
 }
-.dashboard { 
-    display: flex; 
-    flex-direction: column; 
-    min-height: 100vh; 
+
+.dashboard {
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
+
 
 .header { 
     display: flex; 
@@ -84,20 +87,66 @@ body {
     border: 2px solid var(--text-light); 
 }
 
-/* Contenido Principal */
 .main-content {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 2rem;
+    overflow-y: auto; /* para que haya scroll si se llena */
 }
 
 .main-content__title {
+    text-align: center;
     font-size: 2rem;
     font-weight: 800;
-    margin-bottom: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     color: var(--text-light);
+}
+
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.toggle-switch {
+  display: flex;
+  width: 360px;
+  height: 52px;
+  background-color: #ffffff35;
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: #ffffffc9;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  padding: 0.75rem 1.25rem; /* 💥 aquí el extra de cariño */
+}
+
+
+.toggle-option:hover {
+  background-color: #ffffff22;
+}
+
+.toggle-active {
+  background-color: #fff;
+  color: var(--primary-bg);
+  pointer-events: none;
 }
 
 .class-list {

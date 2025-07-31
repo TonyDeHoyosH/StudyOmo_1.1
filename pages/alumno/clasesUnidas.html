@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyOmo</title>
+    <link rel="icon" href="assets/icons/logo_StudyOmo_azul.png" type="image/x-icon">
+    <link rel="stylesheet" href="./clasesUnidas.css" />
+    <link rel="stylesheet" href="../home/global.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="dashboard">
+        <header class="header">
+            <div class="header__brand">
+                <!-- SVG del Logo -->
+                <img src="/assets/icons/logo_StudyOmo_azul.png" alt="logo StudyOmo" class="header__logo">
+                <h1 class="header__title">StudyOmo</h1>
+            </div>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="/home/home.html" class="nav__link">
+                            <!-- Icono Home -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/pages/alumno/objetivosEntregados.html" class="nav__link">
+                           <!-- Icono objetivos -->
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/pages/create-objective/cre-obj.html" class="nav__link nav__link--add">
+                           <!-- Icono Plus -->
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/pages/joinClass/joinClass.html" class="nav__link">
+                           <!-- Icono Users -->
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/pages/stats/stats.html" class="nav__link">
+                           <!-- Icono Chart -->
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <a href="/pages/profile/perfil.html">
+                    <img src="/assets/icons/logo_StudyOmo_azul.png" alt="Avatar del usuario" class="user-profile__avatar">
+                </a>
+            </div>
+        </header>
+
+      <main class="main-content">
+        <h2 class="main-content__title">Clases donde me uní</h2>
+        <div class="toggle-container">
+  <div class="toggle-switch">
+    <a href="./../docente/verClase.html" class="toggle-option">Clases creadas</a>
+<div class="toggle-option toggle-active">Clases donde me uní</div>
+  </div>
+</div>
+        <!-- Este contenedor se llenará dinámicamente -->
+        <div class="class-list">
+          <!-- Las clases se insertarán aquí desde JavaScript -->
+        </div>
+      </main>
+    </div>
+    <script src="./clasesUnidas.js"></script>
+  </body>
+</html>

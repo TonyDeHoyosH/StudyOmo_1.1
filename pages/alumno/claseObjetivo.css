@@ -1,4 +1,4 @@
-/* Variables de color y fuentes globales (NO MODIFICADO) */
+/* Variables de color y fuentes globales */
 :root {
     --primary-bg: #1A5276;
     --card-bg: #FFFFFF;
@@ -11,9 +11,10 @@
     /* Colores adicionales del diseño */
     --text-label-blue: #0B5394;
     --text-value-grey: #808B96;
+    --error-color: #E74C3C;
 }
 
-/* Reseteo y estilos base del body (NO MODIFICADO) */
+/* Reseteo y estilos base del body */
 * { 
     margin: 0; 
     padding: 0; 
@@ -71,6 +72,10 @@ body {
     justify-content: center;
 }
 
+.nav_link--add{
+    color: #D6EAF8;
+}
+
 .nav__link svg { 
     width: 24px; 
     height: 24px; 
@@ -104,7 +109,7 @@ body {
     border-radius: 25px;
     padding: 2rem 3rem;
     width: 100%;
-    max-width: 600px; /* Ancho ajustado */
+    max-width: 700px; /* Aumentado ligeramente para acomodar más contenido */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
@@ -113,10 +118,10 @@ body {
     position: absolute;
     left: 0;
     top: 50%;
-    transform: translate(-40%, -50%); /* Ajustado para que sobresalga más */
+    transform: translate(-40%, -50%);
     width: 220px; 
     height: 220px;
-    opacity: 1; /* Opacidad total como en la imagen */
+    opacity: 1;
     z-index: 0;
 }
 
@@ -129,7 +134,7 @@ body {
 .objective-card__content {
     position: relative;
     z-index: 1;
-    padding-left: 4rem; /* Espacio para que el logo no se superponga al texto */
+    padding-left: 4rem;
 }
 
 .objective-info {
@@ -143,32 +148,14 @@ body {
     font-weight: 800;
 }
 
-.form-input{
-    font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    padding: 0.5rem 0.8rem;
-    border-radius: 10px;
-    width: 130px; /* Ancho consistente para los inputs */
-    background-color: #f8f9f9;
-    width: 26rem;
-}
-
-.objective-description {
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: var(--text-primary);
-    margin-bottom: 1.5rem;
-}
-
 /* Grid para los detalles de tiempo */
 .details-grid {
     display: grid;
-    grid-template-columns: auto 1fr; /* Columna para etiqueta, columna para valor */
-    gap: 0.75rem 1.5rem; /* Espacio vertical y horizontal */
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem 1.5rem;
     margin-bottom: 2rem;
     font-size: 1.1rem;
+    align-items: center;
 }
 
 .details-grid .label {
@@ -176,10 +163,13 @@ body {
     text-align: left;
 }
 
-.details-grid .value {
-    font-weight: 400;
+/* Estilo para mostrar los valores de tiempo (ya no son inputs) */
+.time-display {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
     color: var(--text-value-grey);
-    text-align: left;
+    display: inline-block;
 }
 
 /* Acciones y botones */
@@ -208,7 +198,7 @@ body {
     color: var(--text-light);
 }
 
-.btn--primary:hover {
+.btn--primary:hover:not(:disabled) {
     background-color: var(--button-hover-bg);
 }
 
@@ -218,7 +208,7 @@ body {
     border: 2px solid #bdc3c7;
 }
 
-.btn--secondary:hover {
+.btn--secondary:hover:not(:disabled) {
     background-color: #f4f6f7;
     border-color: #99a3a4;
 }
@@ -227,149 +217,28 @@ body {
     stroke: var(--text-primary);
 }
 
-.time-input {
-    font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    padding: 0.5rem 0.8rem;
-    border: 2px solid #D0D3D4;
-    border-radius: 10px;
-    width: 130px; /* Ancho consistente para los inputs */
-    background-color: #f8f9f9;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-/* Mejora visual al hacer clic en el input */
-.time-input:focus {
-    outline: none;
-    border-color: var(--button-bg);
-    box-shadow: 0 0 5px rgba(41, 128, 185, 0.4);
-}
-
-/* Estilo para cuando el input está deshabilitado (después de iniciar el temporizador) */
-.time-input:disabled {
-    background-color: #e9ecef;
+/* Estilos para botones deshabilitados */
+.btn:disabled {
+    opacity: 0.5;
     cursor: not-allowed;
 }
 
-
-/* Oculta las flechas de subida/bajada en los inputs de tipo número para un look más limpio */
-.time-input::-webkit-outer-spin-button,
-.time-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+.btn:disabled:hover {
+    background-color: initial;
 }
 
-
-/* Asegura que los labels y los inputs se alineen verticalmente en el centro */
-.details-grid {
-    align-items: center;
-}
-
-
-/* Estilo para el contenedor del material adjunto */
-.material-display-container {
-    margin-top: 1rem;
-    padding: 0.8rem;
-    border: 2px dashed #D0D3D4;
+/* Mensaje de tarea vencida */
+.mensaje-vencida {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: #FCF3CF;
+    border: 2px solid #F4D03F;
     border-radius: 10px;
-    font-size: 0.9rem;
-    color: #34495E;
-    font-weight: 700;
-    text-align: center;
-    display: none; /* Oculto por defecto, se muestra con JS */
-}
-.material-display-container a {
-    color: #2980B9;
-    text-decoration: none;
-}
-.material-display-container a:hover {
-    text-decoration: underline;
-}
-
-
-/* Estilos para el Modal */
-.modal {
-    display: none; /* Oculto por defecto */
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-    justify-content: center;
-    align-items: center;
-}
-
-.modal.active {
-    display: flex; /* Se muestra cambiando a flex */
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 2rem 2.5rem;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     text-align: center;
 }
 
-.close-button {
-    color: #aaa;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close-button:hover,
-.close-button:focus {
-    color: black;
-}
-
-.modal-content h2 {
-    margin-bottom: 0.5rem;
-}
-
-.modal-content p {
-    margin-bottom: 2rem;
-    color: #555;
-}
-
-.modal-options {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-}
-
-.separator-text {
+.mensaje-vencida p {
+    color: #7D6608;
     font-weight: 700;
-    color: #ccc;
-}
-
-.url-input-group {
-    display: flex;
-    width: 100%;
-    gap: 0.5rem;
-}
-
-#url-input {
-    flex-grow: 1;
-    padding: 0.8rem;
-    border: 2px solid #ccc;
-    border-radius: 50px;
-    font-family: 'Nunito', sans-serif;
-}
-
-.datetime-input {
-    min-width: 220px; /* Ancho mínimo para que el selector de fecha y hora sea legible */
+    margin: 0;
 }

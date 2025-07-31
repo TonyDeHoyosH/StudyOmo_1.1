@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    
     // ===================================================================
     // --- SECCIÓN 1: LÓGICA DEL MODAL PARA MATERIAL DE TRABAJO ---
     // ===================================================================
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlInput = document.getElementById('url-input');
     const saveUrlBtn = document.getElementById('save-url-btn');
     const materialDisplay = document.getElementById('material-display');
+
 
     // Comprobamos si los elementos del modal existen para evitar errores en otras páginas
     if (materialModal) {
